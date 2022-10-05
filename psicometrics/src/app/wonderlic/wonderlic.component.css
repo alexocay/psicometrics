@@ -1,0 +1,12 @@
+image{
+    width: 150%;
+    height: 150%;
+    position: absolute;
+    z-index: -1;
+}
+
+.container-fluid{
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 5%;
+}

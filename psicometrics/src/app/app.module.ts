@@ -19,7 +19,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes), 
   ],
   providers: [],
   bootstrap: [AppComponent]

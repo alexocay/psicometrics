@@ -19,6 +19,8 @@ export class WonderlicComponent implements OnInit {
     { question: '7', answer: 3 },
     { question: '8', answer: 3 },
     { question: '9', answer: 1 },
+    { question: '10', answer: 4 },
+    { question: '11', answer: 3 },
   ];
 
   one: any;
@@ -46,6 +48,7 @@ export class WonderlicComponent implements OnInit {
       siete: ['', Validators.required],
       ocho: ['', Validators.required],
       nueve: ['', Validators.required],
+      diez: ['', Validators.required],
     });
   }
 

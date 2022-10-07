@@ -5,15 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WonderlicComponent } from './wonderlic/wonderlic.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
 { path: 'wonderlic', component: WonderlicComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    WonderlicComponent
+    WonderlicComponent,
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,

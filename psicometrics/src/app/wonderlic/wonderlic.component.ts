@@ -21,9 +21,19 @@ export class WonderlicComponent implements OnInit {
     { question: '9', answer: 1 },
     { question: '10', answer: 4 },
     { question: '11', answer: 3 },
+    { question: '12', answer: 6000 },
+    { question: '13', answer: 1 },
+    { question: '14', answer: 2 },
+    { question: '15', answer: 60 },
+    { question: '16', answer: 2 },
+    { question: '17', answer: 'o' },
+    { question: '18', answer: 13 },
+    { question: '19', answer: 3 },
+    { question: '20', answer: 2 },
+   
   ];
 
-  one: any;
+  
 
   respuestas: string[] = [];
   form: string[] = [];
@@ -49,6 +59,16 @@ export class WonderlicComponent implements OnInit {
       ocho: ['', Validators.required],
       nueve: ['', Validators.required],
       diez: ['', Validators.required],
+      once: ['', Validators.required],
+      doce: ['', Validators.required],
+      trece: ['', Validators.required],
+      catorce: ['', Validators.required],
+      quince: ['', Validators.required],
+      dieciseis: ['', Validators.required],
+      diecisiete: ['', Validators.required],
+      dieciocho: ['', Validators.required],
+      diecinueve: ['', Validators.required],
+      veinte: ['', Validators.required],
     });
   }
 
@@ -64,20 +84,37 @@ export class WonderlicComponent implements OnInit {
   }
 
   answers() {
+
     let incorrectas = [];
     let correctas = [];
-    let user = [
+    this.form = [
       this.formPreguntas.get('one')?.value,
       this.formPreguntas.get('dos')?.value,
       this.formPreguntas.get('tres')?.value,
       this.formPreguntas.get('cuatro')?.value,
       this.formPreguntas.get('cinco')?.value,
       this.formPreguntas.get('seis')?.value,
+      this.formPreguntas.get('siete')?.value,
+      this.formPreguntas.get('ocho')?.value,
+      this.formPreguntas.get('nueve')?.value,
+      this.formPreguntas.get('diez')?.value,
+      this.formPreguntas.get('once')?.value,
+      this.formPreguntas.get('doce')?.value,
+      this.formPreguntas.get('trece')?.value,
+      this.formPreguntas.get('catorce')?.value,
+      this.formPreguntas.get('quince')?.value,
+      this.formPreguntas.get('dieciseis')?.value,
+      this.formPreguntas.get('diecisiete')?.value.toLowerCase(),
+      this.formPreguntas.get('dieciocho')?.value,
+      this.formPreguntas.get('diecinueve')?.value,
+      this.formPreguntas.get('veinte')?.value,
     ];
 
-    for (let ans of user) {
+    console.log(this.form)
+
+    /*for (let ans of user) {
       this.form.push(ans);
-    }
+    }*/
 
     for (let final of this.form) {
       let res = this.respuestas.includes(final);

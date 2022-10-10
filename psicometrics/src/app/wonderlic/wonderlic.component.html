@@ -1,5 +1,8 @@
 <div class="form-group container-fluid" *ngIf="time < 720; else noTime">
+  <div class="static">
   <p>Tiempo transcurrido: {{ transform(time) }}</p>
+  </div>
+  <br>
   <form [formGroup]="formPreguntas">
     <div class="form-group">
       <div>

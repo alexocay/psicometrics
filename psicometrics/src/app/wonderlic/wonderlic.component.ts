@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class WonderlicComponent implements OnInit {
   formPreguntas: FormGroup;
-  time: number = 650;
+  time: number = 0;
   interval: any;
 
   wonderlic = [

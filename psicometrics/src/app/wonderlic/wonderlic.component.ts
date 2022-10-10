@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class WonderlicComponent implements OnInit {
   formPreguntas: FormGroup;
+  time: number = 650;
+  interval: any;
 
   wonderlic = [
     { question: '1', answer: 4 },
@@ -29,11 +31,9 @@ export class WonderlicComponent implements OnInit {
     { question: '17', answer: 'o' },
     { question: '18', answer: 13 },
     { question: '19', answer: 3 },
-    { question: '20', answer: 2 },
+    { question: '20', answer: 1 },
    
   ];
-
-  
 
   respuestas: string[] = [];
   form: string[] = [];
@@ -44,7 +44,47 @@ export class WonderlicComponent implements OnInit {
   ngOnInit(): void {
     this.startForm();
     this.getAnswer();
+    this.startTimer();
   }
+
+  startTimer() {
+    console.log("=====>");
+    this.interval = setInterval(() => {
+      if (this.time === 0) {
+        this.time++;
+      } else if(this.time === 720){
+        this.pauseTimer();
+        console.log("se termino tu tiempo");
+        this.answers();
+      } else {
+        this.time++
+      }
+    }, 1000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  
+transform (value: number, args?: any){
+
+  const hours: number = Math.floor(value / 60);
+  const minutes: number = (value - hours * 60);
+
+  if (hours < 10 && minutes < 10) {
+    return '0' + hours + ' : 0' + (value - hours * 60);
+}
+if (hours > 10 && minutes > 10) {
+    return '0' + hours + ' : ' + (value - hours * 60);
+}
+if (hours > 10 && minutes < 10) {
+    return hours + ' : 0' + (value - hours * 60);
+}
+if (minutes > 10) {
+    return '0' + hours + ' : ' + (value - hours * 60);
+}
+}
 
   startForm(): void {
     //Metodo para inicializar el formulario
@@ -129,15 +169,19 @@ export class WonderlicComponent implements OnInit {
     }
 
     if (correctas.length < 14) {
-      this.resultado = 'inferior';
+      this.resultado = 'Resultado: Inferior -' + correctas.length + '/' + this.respuestas.length;
       console.log('Inferior');
     } else if (correctas.length >= 14 && correctas.length <= 20) {
+      this.resultado = 'Resultado: Inferior a la media - ' + correctas.length + '/' + this.respuestas.length;
       console.log('Inferior a la media');
     } else if (correctas.length >= 21 && correctas.length <= 26) {
+      this.resultado = 'Media';
       console.log('Media');
     } else if (correctas.length >= 27 && correctas.length <= 32) {
+      this.resultado = 'Superior a la media';
       console.log('Superior a la media');
     } else if (correctas.length >= 33) {
+      this.resultado = 'Superior';
       console.log('Superior');
     }
   }

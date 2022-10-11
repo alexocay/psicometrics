@@ -169,7 +169,7 @@ if (minutes > 10) {
     }
 
     if (correctas.length < 14) {
-      this.resultado = 'Resultado: Inferior -' + correctas.length + '/' + this.respuestas.length;
+      this.resultado = 'Resultado: Inferior - ' + correctas.length + '/' + this.respuestas.length;
       console.log('Inferior');
     } else if (correctas.length >= 14 && correctas.length <= 20) {
       this.resultado = 'Resultado: Inferior a la media - ' + correctas.length + '/' + this.respuestas.length;

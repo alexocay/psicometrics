@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { WonderlicComponent } from './wonderlic/wonderlic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { QuizModule } from './components/quiz.module';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
 { path: 'wonderlic', component: WonderlicComponent },
 ];
 
@@ -16,13 +16,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     WonderlicComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forChild(routes), 
+    QuizModule
   ],
   providers: [],
   bootstrap: [AppComponent]

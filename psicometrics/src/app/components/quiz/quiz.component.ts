@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../services/quiz.service';
 import { map, Observable } from 'rxjs';
+import { Question } from '../types/question';
 
 @Component({
   selector: 'app-quiz',
@@ -8,6 +9,7 @@ import { map, Observable } from 'rxjs';
   styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent implements OnInit {
+  questions$: Observable<Question>;
   questionsLength$: Observable<number>;
   currentQuestionIndex$: Observable<number>;
   showResults$: Observable<boolean>;

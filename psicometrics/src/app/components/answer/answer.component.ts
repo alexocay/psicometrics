@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { AnswerType } from '../types/answer.type';
 
 @Component({
   selector: 'app-quiz-answer',
@@ -9,6 +10,13 @@ export class AnswerComponent implements OnInit {
 
   @Input('answerText') answerTextProps!: string;
   @Input('index') indexProps!: number;
+  
+  @Output('selectAnswer') selectAnswerEvent = new EventEmitter<AnswerType>()
+@HostListener('click', ['event'])
+onClick(){
+  this.selectAnswerEvent.emit(this.answerTextProps)
+}
+
 
   letterMapping: string[] = ['A', 'B', 'C', 'D', 'E'];
 
@@ -19,7 +27,7 @@ export class AnswerComponent implements OnInit {
     if(!this.answerTextProps || !this.indexProps === undefined) {
       throw new Error('Inputs in answer ara not correc');
     }
-    console.log('aaa',this.answerTextProps)
-  }
+
+    }
 
 }

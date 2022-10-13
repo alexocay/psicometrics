@@ -7,4 +7,5 @@ export interface QuizState {
     showResults: boolean;
     correctAnswerCount: number;
     answers: AnswerType[];
+    currentAnswer: AnswerType | null;
 }

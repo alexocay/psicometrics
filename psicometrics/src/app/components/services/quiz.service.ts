@@ -15,8 +15,9 @@ export class QuizService {
     showResults: false,
     correctAnswerCount: 0,
     answers: this.shuffleAnswers(mockData[0]),
-  }
-  state$ = new BehaviorSubject<QuizState>({...this.initialState});
+    currentAnswer: null,
+  };
+  state$ = new BehaviorSubject<QuizState>({ ...this.initialState });
 
   setState(partialState: Partial<QuizState>): void {
     this.state$.next({ ...this.state$.getValue(), ...partialState });
@@ -33,19 +34,29 @@ export class QuizService {
     const newCurrentQuestionIndex = newShowResults
       ? state.currentQuestionIndex
       : state.currentQuestionIndex + 1;
-    const newAnswers = newShowResults ? [] : this.shuffleAnswers(state.questions[newCurrentQuestionIndex])
+    const newAnswers = newShowResults
+      ? []
+      : this.shuffleAnswers(state.questions[newCurrentQuestionIndex]);
 
     this.setState({
       currentQuestionIndex: newCurrentQuestionIndex,
       showResults: newShowResults,
       answers: newAnswers,
+      currentAnswer: null,
     });
   }
 
   restart(): void {
-    this.setState(
-      this.initialState
-    );
+    this.setState(this.initialState);
+  }
+
+  selectAnswer(answer: AnswerType): void {
+    const state = this.getState();
+    const newCorrectAnswerCount =
+      answer === state.questions[state.currentQuestionIndex].correctAnswer ? state.correctAnswerCount + 1 : state.correctAnswerCount;
+    
+      this.setState({ currentAnswer: answer, correctAnswerCount: newCorrectAnswerCount });
+    
   }
 
   shuffleAnswers(question: Question): AnswerType[] {

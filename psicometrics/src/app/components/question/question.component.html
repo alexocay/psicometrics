@@ -1,8 +1,20 @@
 <div class="answer">
-    <div class="questions">{{(question$ | async)?.question}}</div>
+  <!--<div class="questions">{{ (question$ | async)?.question }}</div>-->
+  <div class="questions">{{ questionTextProps }}</div>
     <div class="answers">
-        <app-quiz-answer class="answer" *ngFor="let answer of answers$ | async; let i = index" [answerText]="answer" [index]="i"></app-quiz-answer>
-    </div>
+    <app-quiz-answer
+      *ngFor="let answer of answers$ | async; let i = index"
+      [answerText]="answer"
+      [index]="i"
+      [ngClass]="{
+        answer: true,
+        'correct-answer': isCorrectAnswer(answer),
+        'wrong-answer': isWrongAnswer(answer),
+        'disabled-answer': isDisabledAnswer(answer)
+      }"
+      (selectAnswer)="selectAnswer($event)"
+    ></app-quiz-answer>
+  </div>
 </div>
 
 <!--<app-quiz-answer></app-quiz-answer>-->

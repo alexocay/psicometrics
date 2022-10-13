@@ -1,5 +1,14 @@
+import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import data from './data'
+
+interface Question{
+  question: any;
+  answers: any[];
+  image: any
+}
 
 @Component({
   selector: 'app-wonderlic',
@@ -11,11 +20,14 @@ export class WonderlicComponent implements OnInit {
   time: number = 0;
   interval: any;
 
+  question$: Observable<Question>;
+  questions: Question[] = data;
+
   wonderlic = [
-    { question: '1', answer: 4 },
-    { question: '2', answer: 2,},
-    { question: '3', answer: 3 },
-    { question: '4', answer: 2 },
+    { question: '1', answer: 3 },
+    { question: '2', answer: 3,},
+    { question: '3', answer: 4 },
+    /*{ question: '4', answer: 2 },
     { question: '5', answer: 3 },
     { question: '6', answer: 1 },
     { question: '7', answer: 3 },
@@ -31,7 +43,7 @@ export class WonderlicComponent implements OnInit {
     { question: '17', answer: 'o' },
     { question: '18', answer: 13 },
     { question: '19', answer: 3 },
-    { question: '20', answer: 1 },
+    { question: '20', answer: 1 },*/
    
   ];
 
@@ -45,6 +57,7 @@ export class WonderlicComponent implements OnInit {
     this.startForm();
     this.getAnswer();
     this.startTimer();
+    console.log(this.questions);
   }
 
   startTimer() {
@@ -87,12 +100,12 @@ if (minutes > 10) {
 }
 
   startForm(): void {
-    //Metodo para inicializar el formulario
+    
     this.formPreguntas = this.formBuilder.group({
-      one: ['', Validators.required],
-      dos: ['', Validators.required],
-      tres: ['', Validators.required],
-      cuatro: ['', Validators.required],
+      1: ['', Validators.required],
+      2: ['', Validators.required],
+      3: ['', Validators.required],
+      /*cuatro: ['', Validators.required],
       cinco: ['', Validators.required],
       seis: ['', Validators.required],
       siete: ['', Validators.required],
@@ -108,7 +121,7 @@ if (minutes > 10) {
       diecisiete: ['', Validators.required],
       dieciocho: ['', Validators.required],
       diecinueve: ['', Validators.required],
-      veinte: ['', Validators.required],
+      veinte: ['', Validators.required],*/
     });
   }
 
@@ -123,16 +136,31 @@ if (minutes > 10) {
     console.log('cambio');
   }
 
+  selectAnswer(a1:any, arr:any){
+
+    let json = {
+      question: a1,
+      answer: arr
+    }
+
+    console.log(a1);
+    console.log(arr);
+    this.form.push();
+    console.log(this.form);
+
+      }
+  
+
   answers() {
 
     let incorrectas = [];
     let correctas = [];
     this.form = [
-      this.formPreguntas.get('one')?.value,
-      this.formPreguntas.get('dos')?.value,
-      this.formPreguntas.get('tres')?.value,
-      this.formPreguntas.get('cuatro')?.value,
-      this.formPreguntas.get('cinco')?.value,
+      this.formPreguntas.get('1')?.value,
+      this.formPreguntas.get('2')?.value,
+      this.formPreguntas.get('3')?.value,
+      /*this.formPreguntas.get('4')?.value,
+      this.formPreguntas.get('5')?.value,
       this.formPreguntas.get('seis')?.value,
       this.formPreguntas.get('siete')?.value,
       this.formPreguntas.get('ocho')?.value,
@@ -147,7 +175,7 @@ if (minutes > 10) {
       this.formPreguntas.get('diecisiete')?.value.toLowerCase(),
       this.formPreguntas.get('dieciocho')?.value,
       this.formPreguntas.get('diecinueve')?.value,
-      this.formPreguntas.get('veinte')?.value,
+      this.formPreguntas.get('veinte')?.value,*/
     ];
 
     console.log(this.form)

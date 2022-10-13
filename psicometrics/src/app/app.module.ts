@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { QuizModule } from './components/quiz.module';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
 { path: 'wonderlic', component: WonderlicComponent },
 ];
 

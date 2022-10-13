@@ -1,8 +1,10 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import data from './data'
+import { QuestionsForm} from './form.model'
+import {  FormsService } from './forms.service';
 
 interface Question{
   question: any;
@@ -16,34 +18,21 @@ interface Question{
   styleUrls: ['./wonderlic.component.css'],
 })
 export class WonderlicComponent implements OnInit {
-  formPreguntas: FormGroup;
+  formPreguntas: QuestionsForm;
+
   time: number = 0;
+  timetwo: any;
   interval: any;
 
   question$: Observable<Question>;
   questions: Question[] = data;
 
   wonderlic = [
-    { question: '1', answer: 3 },
-    { question: '2', answer: 3,},
-    { question: '3', answer: 4 },
-    /*{ question: '4', answer: 2 },
-    { question: '5', answer: 3 },
-    { question: '6', answer: 1 },
-    { question: '7', answer: 3 },
-    { question: '8', answer: 3 },
-    { question: '9', answer: 1 },
-    { question: '10', answer: 4 },
-    { question: '11', answer: 3 },
-    { question: '12', answer: 6000 },
-    { question: '13', answer: 1 },
-    { question: '14', answer: 2 },
-    { question: '15', answer: 60 },
-    { question: '16', answer: 2 },
-    { question: '17', answer: 'o' },
-    { question: '18', answer: 13 },
-    { question: '19', answer: 3 },
-    { question: '20', answer: 1 },*/
+    
+    { question: '1', answer: 3},
+    { question: '2', answer: 3},
+    { question: '3', answer: 2 },
+    { question: '4', answer: 2 },
    
   ];
 
@@ -51,7 +40,9 @@ export class WonderlicComponent implements OnInit {
   form: string[] = [];
   resultado = '';
 
-  constructor(private formBuilder: FormBuilder) {}
+  new: any;
+
+  constructor(private formBuilder: FormBuilder, private formService: FormsService  ) {}
 
   ngOnInit(): void {
     this.startForm();
@@ -65,12 +56,16 @@ export class WonderlicComponent implements OnInit {
     this.interval = setInterval(() => {
       if (this.time === 0) {
         this.time++;
+        this.timetwo = this.time;
+        console.log(this.timetwo)
       } else if(this.time === 720){
         this.pauseTimer();
         console.log("se termino tu tiempo");
         this.answers();
       } else {
         this.time++
+        this.timetwo == this.time;
+        console.log(this.timetwo)
       }
     }, 1000);
   }
@@ -100,28 +95,12 @@ if (minutes > 10) {
 }
 
   startForm(): void {
-    
-    this.formPreguntas = this.formBuilder.group({
-      1: ['', Validators.required],
-      2: ['', Validators.required],
-      3: ['', Validators.required],
-      /*cuatro: ['', Validators.required],
-      cinco: ['', Validators.required],
-      seis: ['', Validators.required],
-      siete: ['', Validators.required],
-      ocho: ['', Validators.required],
-      nueve: ['', Validators.required],
-      diez: ['', Validators.required],
-      once: ['', Validators.required],
-      doce: ['', Validators.required],
-      trece: ['', Validators.required],
-      catorce: ['', Validators.required],
-      quince: ['', Validators.required],
-      dieciseis: ['', Validators.required],
-      diecisiete: ['', Validators.required],
-      dieciocho: ['', Validators.required],
-      diecinueve: ['', Validators.required],
-      veinte: ['', Validators.required],*/
+
+    this.formPreguntas = new FormGroup({
+      1: new FormControl('', { nonNullable: true }),
+      2: new FormControl('', { nonNullable: true }),
+      3: new FormControl('', { nonNullable: true }),
+      4: new FormControl('', { nonNullable: true }),
     });
   }
 
@@ -131,32 +110,16 @@ if (minutes > 10) {
     }
     console.log(this.respuestas);
   }
-
-  change() {
-    console.log('cambio');
-  }
-
-  selectAnswer(a1:any, arr:any){
-
-    let json = {
-      question: a1,
-      answer: arr
-    }
-
-    console.log(a1);
-    console.log(arr);
-    this.form.push();
-    console.log(this.form);
-
-      }
   
-
   answers() {
+
+    this.pauseTimer();
+    this.formPreguntas.getRawValue()
 
     let incorrectas = [];
     let correctas = [];
-    this.form = [
-      this.formPreguntas.get('1')?.value,
+    /*this.form = [
+      1: this.formPreguntas.get('1')?.value,
       this.formPreguntas.get('2')?.value,
       this.formPreguntas.get('3')?.value,
       /*this.formPreguntas.get('4')?.value,
@@ -175,16 +138,46 @@ if (minutes > 10) {
       this.formPreguntas.get('diecisiete')?.value.toLowerCase(),
       this.formPreguntas.get('dieciocho')?.value,
       this.formPreguntas.get('diecinueve')?.value,
-      this.formPreguntas.get('veinte')?.value,*/
-    ];
+      this.formPreguntas.get('veinte')?.value,
+    ];*/
 
-    console.log(this.form)
-
-    /*for (let ans of user) {
-      this.form.push(ans);
+    /*this.form = {
+      1: this.formPreguntas.get('1')?.value,
+      2: this.formPreguntas.get('2')?.value,
+      3: this.formPreguntas.get('3')?.value,
     }*/
 
-    for (let final of this.form) {
+    //this.formPreguntas.getRawValue();
+
+    console.log(this.formPreguntas.value)
+
+    this.form = Object.values(this.formPreguntas.value);
+    console.log(this.form);
+    console.log(this.form.length);
+
+    
+
+    /*for (let won of this.wonderlic) {
+      if (won === this.formPreguntas.value[i]){
+        correctas.push(won);
+      } else {
+        incorrectas.push(won);
+      } 
+    }*/
+
+    for(let answer of this.form){
+      let res = this.respuestas.includes(answer);
+      console.log(res);
+      if(res == true){
+        correctas.push(answer);
+        console.log(correctas);
+      } else {
+        incorrectas.push(answer);
+        console.log(incorrectas);
+    }
+    }
+
+    /*for (let final of this.form) {
       let res = this.respuestas.includes(final);
       console.log(res);
       if (res == true) {
@@ -194,7 +187,7 @@ if (minutes > 10) {
         incorrectas.push(final);
         console.log(incorrectas);
       }
-    }
+    }*/
 
     if (correctas.length < 14) {
       this.resultado = 'Resultado: Inferior - ' + correctas.length + '/' + this.respuestas.length;

@@ -9,7 +9,7 @@ import { QuizService } from 'app/components/services/quiz.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'prueba',
     component: QuizComponent,
   }
 ];

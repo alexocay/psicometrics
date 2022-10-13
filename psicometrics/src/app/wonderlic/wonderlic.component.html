@@ -1,9 +1,9 @@
-<div class="form-group container-fluid" *ngIf="time < 720; else noTime">
+<div class="form-group container-fluid" *ngIf="timetwo < 720">
   <div class="static">
     <p>Tiempo transcurrido: {{ transform(time) }}</p>
   </div>
   <br />
-  <form [formGroup]="formPreguntas">
+  <form [formGroup]="formPreguntas"  (ngSubmit)="answers()">
     <div class="form-group" *ngFor="let question of questions; let i = index">
       <div>
         <label for="exampleFormControlInput1"> {{ question.question.text }}</label>
@@ -65,9 +65,7 @@
         <label class="form-check-label" for="inlineRadio1">Octubre</label>
       </div>-->
     </div>
-    <button
-      *ngIf="form.length == 0"
-      (click)="answers()"
+    <button *ngIf="form.length == 0"
       type="submit"
       class="btn btn-primary"
     >
@@ -986,7 +984,7 @@
     </button>
   </form>-->
 
-  <div *ngIf="form.length != 0">
+  <div *ngIf="form.length != 0 && time < 720">
     <p>{{ this.resultado }}</p>
     <button
       [routerLink]="['']"
@@ -996,14 +994,30 @@
       Salir
     </button>
   </div>
+
+  <div *ngIf="time > 720">
+    <div class="d-flex justify-content-center align-items-center" *ngIf="time > 720">
+      <p class="text-center text10">Tu tiempo termino</p>
+    </div>
+    <div *ngIf="form.length != 0">
+      <p>{{ this.resultado }}</p>
+      <button 
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+        class="btn btn-primary"
+      >
+        Regresar al inicio
+      </button>
+    </div>
+  </div>
 </div>
-<ng-template #noTime>
-  <div class="d-flex justify-content-center align-items-center">
+<!--<ng-template #noTime>
+  <div class="d-flex justify-content-center align-items-center" *ngIf="time > 720">
     <p class="text-center text10">Tu tiempo termino</p>
   </div>
   <div *ngIf="form.length != 0">
     <p>{{ this.resultado }}</p>
-    <button
+    <button 
       [routerLink]="['']"
       routerLinkActive="router-link-active"
       class="btn btn-primary"
@@ -1011,4 +1025,4 @@
       Regresar al inicio
     </button>
   </div>
-</ng-template>
+</ng-template>-->

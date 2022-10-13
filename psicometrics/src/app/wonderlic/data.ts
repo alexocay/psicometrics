@@ -1,14 +1,12 @@
 const data = [{
-        question:{id:1, text:'1. El último mes del año es:'}, answers: [{id:1, name:'Enero'}, {id:2, name:'Octubre'}, {id:3, name:'Diciembre'}, {id:3, name:'Agosto'}, {id:4, name:'Noviembre'}, {id:5, name:'Mayo'}], image:'0'
+        question:{id:1, text:'1. El último mes del año es:'}, answers: [{id:1, name:'Enero'}, {id:2, name:'Octubre'}, {id:3, name:'Diciembre'}, {id:4, name:'Agosto'}, {id:5, name:'Noviembre'}], image:'0'
     }, {
         question: { id:2, text:'2. CAPTURAR es lo contrario de:'}, answers: [{id:1, name:'Colocar'}, {id:2, name:'Arriesgar'}, {id:3, name:'Libertad'}, {id:4, name:'Aventurar'}, {id:5, name:'Desagradar'}], image:'0'
     }, {
         question: { id:3, text:'3. Todas las palabras abajo citadas se parecen entre sí. ¿Cuál es la que menos parecido tiene con la otra?'}, answers: [{id:1, name:'Enero'}, {id:2, name:'Agosto'}, {id:3, name:'Noviembre'}, {id:4, name:'Miércoles'}, {id:5, name:'Diciembre'}], image:'0'
+    },{
+        question: { id:4, text:'4. Conteste Sí o No: R.P.I significa “ruegue a Dios por el”'}, answers: [{id:1, name:'Si'}, {id:2, name:'No'}], image:'0'
     },/*
-    {
-        question: '4. Conteste Sí o No: R.P.I significa “ruegue a Dios por el”', answers: ['No', 'Si'], image:'0'
-    
-    }, 
     {
         question: '5. En las siguientes palabras: ¿Cuál es diferente de las otras?', answers: ['Tropa', 'Grupo', 'Participar', 'Jauría', 'Cuadrilla'], image:'0'
     }, {

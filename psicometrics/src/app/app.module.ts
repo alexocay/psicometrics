@@ -7,10 +7,12 @@ import { WonderlicComponent } from './wonderlic/wonderlic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { QuizModule } from './components/quiz.module';
+import { TermanMerrilComponent } from './terman-merril/terman-merril.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
 { path: 'wonderlic', component: WonderlicComponent },
+{path: 'termanMerril', component: TermanMerrilComponent}
 ];
 
 @NgModule({
@@ -18,6 +20,7 @@ const routes: Routes = [
     AppComponent,
     WonderlicComponent,
     HomeComponent,
+    TermanMerrilComponent,
   ],
   imports: [
     ReactiveFormsModule,

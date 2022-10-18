@@ -1,14 +1,32 @@
-const data = [{ //empieza la segunda parte
-    question: { id:1, text:'1. Si la tierra estuviera mas cerca del sol'}, answers: [{id:1, name:'Las estrellas desaparecerían'}, {id:2, name:'Los meses serían mas largos'}, {id:3, name:'La tierra estaría mas caliente'}],
+//SERIE 3
+
+const data = [{ 
+    question: { id:1, text:'1. Salado - Dulce'}, answers: [{id:1, name:'Las estrellas desaparecerían'}, {id:2, name:'Los meses serían mas largos'}, {id:3, name:'La tierra estaría mas caliente'}],
 },{ 
-    question: { id:2, text:'2. Los rayos de na rueda están frecuentemente hechos de nogal porque:'}, answers: [{id:1, name:'El nogal es mas fuerte'}, {id:2, name:'Se corta fácilmente'}, {id:3, name:'Sus frenos no son buenos'}],
+    question: { id:2, text:'2. Alegrase - Regocijarse'}, answers: [{id:1, name:'El nogal es mas fuerte'}, {id:2, name:'Se corta fácilmente'}, {id:3, name:'Sus frenos no son buenos'}],
 },{ 
-    question: { id:3, text:'3. Un tren se detiene con más dificultad que un automóvil porque:'}, answers: [{id:1, name:'Tiene mas ruedas'}, {id:2, name:'Es más pesado'}, {id:3, name:'Sus frenos no son buenos'}],
+    question: { id:3, text:'3. Mayor - Menor'}, answers: [{id:1, name:'Tiene mas ruedas'}, {id:2, name:'Es más pesado'}, {id:3, name:'Sus frenos no son buenos'}],
 }, { 
-    question: { id:4, text:'4. El dicho “a golpecitos se derriba un roble” quiere decir:'}, answers: [{id:1, name:'Que los robles son débiles'}, {id:2, name:'Que son mejores los golpes pequeños'}, {id:3, name:'Que el esfuerzo constante logra resultados sorprendentes'}],
+    question: { id:4, text:'4. Sentarse - Pararse'}, answers: [{id:1, name:'Que los robles son débiles'}, {id:2, name:'Que son mejores los golpes pequeños'}, {id:3, name:'Que el esfuerzo constante logra resultados sorprendentes'}],
 }, { 
-    question: { id:5, text:'5. El dicho “Una olla vigilada nunca hierve” quiere decir:'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
-}/*
+    question: { id:5, text:'5. Desperdiciar - Aprovechar'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:6, text:'6. Conceder - Negar'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:7, text:'7. Tónico - Estimulante'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:8, text:'8. Rebajar - Dinigrar'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+},{ 
+    question: { id:9, text:'9. Prohibir - Permitir'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:10, text:'10. Osado - Audaz'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:11, text:'11. Arrebatado - Prudente'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:12, text:'12. Obtuso - Agudo'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+}, { 
+    question: { id:13, text:'13. Inepto - Experto'}, answers: [{id:1, name:'Que no debemos vigilarla cuando esta en el fuego'}, {id:2, name:'Que tarda en hervir'}, {id:3, name:'Que el tiempo se alarga cuando esperamos algo'}],
+} /*
 {
     question: '5. En las siguientes palabras: ¿Cuál es diferente de las otras?', answers: ['Tropa', 'Grupo', 'Participar', 'Jauría', 'Cuadrilla'], image:'0'
 }, {

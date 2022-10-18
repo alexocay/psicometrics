@@ -26,11 +26,3 @@ export type FormRawValue<T extends AbstractControl> = T extends AbstractControl<
 export type QuestionsForm = FormGroup<QuestionsFormControls>;
 
 export type QuestionF = FormRawValue<QuestionsForm>;
-
-export class FormService {
-    constructor() {}
-  
-public add(ans: QuestionF): void {
-      console.log('Add user', ans);
-    }
-  }

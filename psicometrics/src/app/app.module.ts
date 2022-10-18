@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { QuizModule } from './components/quiz.module';
 import { TermanMerrilComponent } from './terman-merril/terman-merril.component';
+import { TermanMerrilModule } from './terman-merril/terman-merril.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forChild(routes), 
-    QuizModule
+    QuizModule, 
+    TermanMerrilModule
   ],
   providers: [],
   bootstrap: [AppComponent]

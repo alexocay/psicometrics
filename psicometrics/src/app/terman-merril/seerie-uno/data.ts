@@ -1,4 +1,3 @@
-//SERIE 1
 const data = [{
     question:{id:1, text:'1. La gasolina se extrae de:'}, answers: [{id:1, name:'Granos'}, {id:2, name:'Petróleo'}, {id:3, name:'Trementina'}, {id:4, name:'Semilla'}]
 }, {

@@ -1,16 +1,21 @@
 <div class="form-group container-fluid" *ngIf="show == 1">
-  <p>Sección 1</p>
+  <div>
+    <h1>SERIE 1</h1>
+    Seleccione la letra correspondiente a la palabra que complete correctamente la oración.
+  </div>
+  <br>
+  <div>
   <form
     [formGroup]="formUno"
     (ngSubmit)="evaluateForm(this.userUno, this.ansUno, 1)"
   >
     <div class="form-group" *ngFor="let question of questions; let i = index">
-      <div *ngIf="i < 5">
+      <div>
         <label for="exampleFormControlInput1">
           {{ question.question.text }}</label
         >
       </div>
-      <div *ngIf="i < 5">
+      <div>
         <div
           class="form-check form-check-inline"
           *ngFor="let answer of question.answers; let j = index"
@@ -71,8 +76,14 @@
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 </div>
+</div>
 
 <div class="form-group container-fluid" *ngIf="show == 2">
+  <div>
+    <h1>SERIE 2</h1>
+    Seleccione la letra correspondiente a la palabra que complete correctamente la oración.
+  </div>
+  <br>
   <form
     [formGroup]="formDos"
     (ngSubmit)="evaluateForm(this.userDos, ansDos, 2)"
@@ -146,6 +157,530 @@
 </div>
 
 <div class="form-group container-fluid" *ngIf="show == 3">
+  <div>
+    <h1>SERIE 3</h1>
+    Cuando las dos palabras signifiquen lo mismo, ponga el numero ( 1 ) de igual ; cuando signifiquen lo opuesto, ponga el numero ( 0 )
+    <br>
+EJEMPLO:
+Tirar - Arrojar.............................................................. ( 1 )
+Norte - Sur .................................................................. ( 0 )
+  </div>
+  <br>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa tu respuesta"
+          formControlName="{{question.question.id}}"
+          onkeypress="return /[0-9]/i.test(event.key)"
+        />
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 4">
+  <p>Sección 4</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 5">
+  <p>Sección 5</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 6">
+  <p>Sección 6</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 7">
+  <p>Sección 7</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 8">
+  <p>Sección 8</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 9">
+  <p>Sección 9</p>
+  <form
+    [formGroup]="formTres"
+    (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"
+  >
+    <div class="form-group" *ngFor="let question of questions; let i = index">
+      <div>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
+      </div>
+      <div>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+      </div>
+      <!--<div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="2"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Marzo</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="3"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Julio</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio2"
+                  value="4"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="5"
+                  formControlName="one"
+                />
+                <label class="form-check-label" for="inlineRadio1">Octubre</label>
+              </div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</div>
+
+<div class="form-group container-fluid" *ngIf="show == 10">
+  <p>Sección 10</p>
   <form
     [formGroup]="formTres"
     (ngSubmit)="evaluateForm(this.userTres, this.ansTres, 3)"

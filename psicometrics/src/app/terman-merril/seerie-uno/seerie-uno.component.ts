@@ -8,15 +8,15 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import {HelpersService} from '../helpers.service'
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface Question {
   question: any;
   answers: any[];
 }
 
-interface QuestionDos {
-  question: any;
-}
 
 @Component({
   selector: 'app-seerie-uno',
@@ -25,8 +25,7 @@ interface QuestionDos {
 })
 export class SeerieUnoComponent implements OnInit {
   question$: Observable<Question>;
-  questions: Question[];
-  questionsDos: QuestionDos[];
+  questions: Question[] = data;
 
   //formulario primera seccion
   formUno: QuestionsForm;
@@ -36,17 +35,18 @@ export class SeerieUnoComponent implements OnInit {
 
   userUno: string[] = [];
 
+ correct = {} as any;
+
   incorrectas: string[] = [];
   correctas: string[] = [];
 
-  constructor() {}
+  constructor(private router:Router, public helpers: HelpersService) {}
 
   ngOnInit(): void {
     this.startForm();
   }
 
   startForm(seccion?: any): void {
-    
       this.formUno = new FormGroup({
         1: new FormControl('', { nonNullable: true }),
         2: new FormControl('', { nonNullable: true }),
@@ -72,6 +72,7 @@ export class SeerieUnoComponent implements OnInit {
     
     if(this.formUno.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
+      /*console.log(this.ansUno)
       this.userUno = Object.values(this.formUno.getRawValue());
       console.log(this.userUno);
       for (let answer of this.userUno) {
@@ -79,12 +80,39 @@ export class SeerieUnoComponent implements OnInit {
         console.log(res);
         if (res == true) {
           this.correctas.push(answer);
-          console.log(this.correctas);
+          console.log(this.correctas, 'correctas');
         } else {
           this.incorrectas.push(answer);
-          console.log(this.incorrectas);
+          console.log(this.incorrectas, 'incorrectas');
         }
-      }}
+      } */
+      console.log(this.ansUno)
+      this.userUno = Object.values(this.formUno.getRawValue());
+      console.log(this.userUno);
+      this.userUno.forEach((answer, index) => {
+        if (answer == this.ansUno[index]) {
+          this.correct[index] = answer;
+          //this.correctas.push(answer);
+          //console.log(this.correctas, 'correctas');
+          console.log(this.correct, 'correct');
+        } else {
+          this.incorrectas.push(answer);
+          console.log(this.incorrectas, 'incorrectas');
+        } 
+      });
+
+      this.helpers.fillAnswers({uno: this.correct});
+
+      this.router.navigate(['/serieDos']);
+    } else {
+      //si el primer formulario no es valido
+      //muestro un mensaje de error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor complete todos los campos',
+      });
+    }
     
 
     /*console.log(arrAns, arrCom, seccion, see);

@@ -1,5 +1,5 @@
 const data = [{
-    question:{id:1, text:'1. La gasolina se extrae de:'}, answers: [{id:1, name:'Granos'}, {id:2, name:'Petróleo'}, {id:3, name:'Trementina'}, {id:4, name:'Semilla'}]
+    question:{id:1, text:'1. Un hombre tiene siempre:'}, answers: [{id:1, name:'Altura'}, {id:2, name:'Circunferencia'}, {id:3, name:'Latitud'}, {id:4, name:'Longuitud'}, {id:5, name:'Radio'}]
 }, {
     question:{id:2, text:'2. Una tonelada tiene:'}, answers: [{id:1, name:'1000 Kgs.'}, {id:2, name:'2000kgs'}, {id:3, name:'3000 Kgs.'}, {id:4, name:'4000 Kgs.'}]
 }, {

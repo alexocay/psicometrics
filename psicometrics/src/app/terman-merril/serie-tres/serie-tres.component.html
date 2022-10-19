@@ -1,1 +1,77 @@
-<p>serie-tres works!</p>
+<div class="form-group container-fluid">
+    <div>
+      <h1>SERIE 3</h1>
+      Cuando las dos palabras signifiquen lo mismo, ponga el numero ( 1 ) de igual ; cuando signifiquen lo opuesto, ponga el numero ( 0 )
+      <br>
+  EJEMPLO:
+  Tirar - Arrojar.............................................................. ( 1 )
+  Norte - Sur .................................................................. ( 0 )
+    </div>
+    <br>
+    <form
+      [formGroup]="formTres"
+      (ngSubmit)="evaluateForm()"
+    >
+      <div class="form-group" *ngFor="let question of questions; let i = index">
+        <div>
+          <label for="exampleFormControlInput1">
+            {{ question.question.text }}</label
+          >
+        </div>
+        <div>
+          <div
+            class="form-check form-check-inline"
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa tu respuesta"
+            formControlName="{{question.question.id}}"
+            onkeypress="return /[0-9]/i.test(event.key)"
+          />
+          </div>
+        </div>
+        <!--<div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio2"
+                    value="2"
+                    formControlName="one"
+                  />
+                  <label class="form-check-label" for="inlineRadio2">Marzo</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio1"
+                    value="3"
+                    formControlName="one"
+                  />
+                  <label class="form-check-label" for="inlineRadio1">Julio</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio2"
+                    value="4"
+                    formControlName="one"
+                  />
+                  <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio1"
+                    value="5"
+                    formControlName="one"
+                  />
+                  <label class="form-check-label" for="inlineRadio1">Octubre</label>
+                </div>-->
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>

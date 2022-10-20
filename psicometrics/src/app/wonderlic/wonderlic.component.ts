@@ -18,7 +18,7 @@ interface Question{
   styleUrls: ['./wonderlic.component.css'],
 })
 export class WonderlicComponent implements OnInit {
-  formPreguntas: QuestionsForm;
+  formPreguntas: FormGroup;
 
   time: number = 0;
   timetwo: any;
@@ -35,6 +35,8 @@ export class WonderlicComponent implements OnInit {
     { question: '4', answer: 2 },
    
   ];
+
+  wonderlicDos = ['4', '2', '3', '2', '3', '1', '3', '3', '1', '4', '3', '6000', '1', '2', '60', '2', 'o', '13', '3', '1'] //vamos en la 20
 
   respuestas: string[] = [];
   form: string[] = [];
@@ -101,6 +103,52 @@ if (minutes > 10) {
       2: new FormControl('', { nonNullable: true }),
       3: new FormControl('', { nonNullable: true }),
       4: new FormControl('', { nonNullable: true }),
+      5: new FormControl('', { nonNullable: true }),
+      6: new FormControl('', { nonNullable: true }),
+      7: new FormControl('', { nonNullable: true }),
+      8: new FormControl('', { nonNullable: true }),
+      9: new FormControl('', { nonNullable: true }),
+      10: new FormControl('', { nonNullable: true }),
+      11: new FormControl('', { nonNullable: true }),
+      12: new FormControl('', { nonNullable: true }),
+      13: new FormControl('', { nonNullable: true }),
+      14: new FormControl('', { nonNullable: true }),
+      15: new FormControl('', { nonNullable: true }),
+      16: new FormControl('', { nonNullable: true }),
+      17: new FormControl('', { nonNullable: true }),
+      18: new FormControl('', { nonNullable: true }),
+      19: new FormControl('', { nonNullable: true }),
+      20: new FormControl('', { nonNullable: true }),
+      21: new FormControl('', { nonNullable: true }),
+      22: new FormControl('', { nonNullable: true }),
+      23: new FormControl('', { nonNullable: true }),
+      24: new FormControl('', { nonNullable: true }),
+      25: new FormControl('', { nonNullable: true }),
+      26: new FormControl('', { nonNullable: true }),
+      27: new FormControl('', { nonNullable: true }),
+      28: new FormControl('', { nonNullable: true }),
+      29: new FormControl('', { nonNullable: true }),
+      30: new FormControl('', { nonNullable: true }),
+      31: new FormControl('', { nonNullable: true }),
+      32: new FormControl('', { nonNullable: true }),
+      33: new FormControl('', { nonNullable: true }),
+      34: new FormControl('', { nonNullable: true }),
+      35: new FormControl('', { nonNullable: true }),
+      36: new FormControl('', { nonNullable: true }),
+      37: new FormControl('', { nonNullable: true }),
+      38: new FormControl('', { nonNullable: true }),
+      39: new FormControl('', { nonNullable: true }),
+      40: new FormControl('', { nonNullable: true }),
+      41: new FormControl('', { nonNullable: true }),
+      42: new FormControl('', { nonNullable: true }),
+      43: new FormControl('', { nonNullable: true }),
+      44: new FormControl('', { nonNullable: true }),
+      45: new FormControl('', { nonNullable: true }),
+      46: new FormControl('', { nonNullable: true }),
+      47: new FormControl('', { nonNullable: true }),
+      48: new FormControl('', { nonNullable: true }),
+      49: new FormControl('', { nonNullable: true }),
+      50: new FormControl('', { nonNullable: true }),
     });
   }
 

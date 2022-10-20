@@ -3,27 +3,47 @@
     <p>Tiempo transcurrido: {{ transform(time) }}</p>
   </div>
   <br />
-  <form [formGroup]="formPreguntas"  (ngSubmit)="answers()">
+  <form [formGroup]="formPreguntas" (ngSubmit)="answers()">
     <div class="form-group" *ngFor="let question of questions; let i = index">
       <div>
-        <label for="exampleFormControlInput1"> {{ question.question.text }}</label>
+        <label for="exampleFormControlInput1">
+          {{ question.question.text }}</label
+        >
         <div class="image" *ngIf="question.image != '0'">
           <img src="./assets/img/{{ question.image }}" alt="" class="image" />
         </div>
       </div>
-      <div
-        class="form-check form-check-inline"
-        *ngFor="let answer of question.answers; let j = index"
-      >
-        <input
-          class="form-check-input"
-          type="radio"
-          id="inlineRadio1"
-          value="{{ answer.id }}"
-          formControlName="{{ question.question.id }}"
-        />
-        <label class="form-check-label" for="inlineRadio1">{{ answer.name }}</label>
-      </div>
+      
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let answer of question.answers; let j = index"
+        >
+          <div *ngIf="answer.name != 'null'">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="inlineRadio1"
+              value="{{ answer.id }}"
+              formControlName="{{ question.question.id }}"
+            />
+            <label class="form-check-label" for="inlineRadio1">{{
+              answer.name
+            }}</label>
+          </div>
+          <div *ngIf="answer.name == 'null'">
+            <div class="form-check form-check-inline">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ingresa tu respuesta"
+                formControlName="{{ question.question.id }}"
+                onkeypress="return /[0-9]/i.test(event.key)"
+              />
+            </div>
+          </div>
+        </div>
+      
+      
       <!--<div class="form-check form-check-inline">
         <input
           class="form-check-input"
@@ -65,10 +85,7 @@
         <label class="form-check-label" for="inlineRadio1">Octubre</label>
       </div>-->
     </div>
-    <button *ngIf="form.length == 0"
-      type="submit"
-      class="btn btn-primary"
-    >
+    <button *ngIf="form.length == 0" type="submit" class="btn btn-primary">
       Enviar
     </button>
   </form>
@@ -1011,18 +1028,22 @@
     </div>
   </div>
 </div>-->
-<ng-template #noTime>
-  <div class="d-flex justify-content-center align-items-center" *ngIf="time > 720">
-    <p class="text-center text10">Tu tiempo termino</p>
-  </div>
-  <div *ngIf="form.length != 0">
-    <p>{{ this.resultado }}</p>
-    <button 
-      [routerLink]="['']"
-      routerLinkActive="router-link-active"
-      class="btn btn-primary"
+  <ng-template #noTime>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      *ngIf="time > 720"
     >
-      Regresar al inicio
-    </button>
-  </div>
-</ng-template>
+      <p class="text-center text10">Tu tiempo termino</p>
+    </div>
+    <div *ngIf="form.length != 0">
+      <p>{{ this.resultado }}</p>
+      <button
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+        class="btn btn-primary"
+      >
+        Regresar al inicio
+      </button>
+    </div>
+  </ng-template>
+</div>

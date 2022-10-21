@@ -18,7 +18,7 @@
           class="form-check form-check-inline"
           *ngFor="let answer of question.answers; let j = index"
         >
-          <div *ngIf="answer.name != 'null'">
+          <div *ngIf="answer.name != 'string' && answer.name != 'number'">
             <input
               class="form-check-input"
               type="radio"
@@ -30,17 +30,28 @@
               answer.name
             }}</label>
           </div>
-          <div *ngIf="answer.name == 'null'">
+          <div *ngIf="answer.name == 'number'">
             <div class="form-check form-check-inline">
               <input
                 type="text"
                 class="form-control"
                 placeholder="Ingresa tu respuesta"
                 formControlName="{{ question.question.id }}"
-                onkeypress="return /[0-9]/i.test(event.key)"
+                onkeypress="return /[0-9.]/i.test(event.key)"
               />
             </div>
           </div>
+          <div *ngIf="answer.name == 'string'">
+            <div class="form-check form-check-inline">
+          <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa tu respuesta"
+          onkeypress="return /[a-z]/i.test(event.key)"
+          formControlName="{{ question.question.id }}"
+        />
+      </div>
+      </div>
         </div>
       
       
@@ -85,7 +96,7 @@
         <label class="form-check-label" for="inlineRadio1">Octubre</label>
       </div>-->
     </div>
-    <button *ngIf="form.length == 0" type="submit" class="btn btn-primary">
+    <button *ngIf="userAns.length == 0" type="submit" class="btn btn-primary">
       Enviar
     </button>
   </form>
@@ -1001,7 +1012,7 @@
     </button>
   </form>-->
 
-  <div *ngIf="form.length != 0 && time < 720">
+  <div *ngIf="userAns.length != 0 && time < 720">
     <p>{{ this.resultado }}</p>
     <button
       [routerLink]="['']"

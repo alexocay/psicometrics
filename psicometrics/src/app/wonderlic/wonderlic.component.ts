@@ -1,15 +1,20 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
-import data from './data'
-import { QuestionsForm} from './form.model'
-import {  FormsService } from './forms.service';
+import data from './data';
+import { QuestionsForm } from './form.model';
+import { FormsService } from './forms.service';
 
-interface Question{
+interface Question {
   question: any;
   answers: any[];
-  image: any
+  image: any;
 }
 
 @Component({
@@ -28,15 +33,66 @@ export class WonderlicComponent implements OnInit {
   questions: Question[] = data;
 
   wonderlic = [
-    
-    { question: '1', answer: 3},
-    { question: '2', answer: 3},
+    { question: '1', answer: 3 },
+    { question: '2', answer: 3 },
     { question: '3', answer: 2 },
     { question: '4', answer: 2 },
-   
   ];
 
-  wonderlicDos = ['4', '2', '3', '2', '3', '1', '3', '3', '1', '4', '3', '6000', '1', '2', '60', '2', 'o', '13', '3', '1'] //vamos en la 20
+ ansWonderlic = [
+    '4',
+    '2',
+    '3',
+    '2',
+    '3',
+    '1',
+    '3',
+    '3',
+    '1',
+    '4',
+    '3',
+    '6000',
+    '1',
+    '2',
+    '60',
+    '2',
+    'o',
+    '13',
+    '3',
+    '1',
+    '20',
+    '2',
+    '2',
+    '2',
+    '3',
+    '1',
+    '1',
+    '3',
+    '6',
+    '10',
+    '2',
+    '1',
+    '3',
+    '20',
+    '1',
+    '24',
+    '0.625',
+    '4',
+    '2',
+    '1',
+    '2',
+    '3',
+    '0.33',
+    '2',
+    '2',
+    '2',
+    '3',
+    '175',
+    '1',
+    '12',
+  ];
+
+  userAns: string[] = [];
 
   respuestas: string[] = [];
   form: string[] = [];
@@ -44,7 +100,13 @@ export class WonderlicComponent implements OnInit {
 
   new: any;
 
-  constructor(private formBuilder: FormBuilder, private formService: FormsService  ) {}
+  incorrectas: string[] = [];
+  correctas: string[] = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private formService: FormsService
+  ) {}
 
   ngOnInit(): void {
     this.startForm();
@@ -54,20 +116,20 @@ export class WonderlicComponent implements OnInit {
   }
 
   startTimer() {
-    console.log("=====>");
+    console.log('=====>');
     this.interval = setInterval(() => {
       if (this.time === 0) {
         this.time++;
         this.timetwo = this.time;
-        console.log(this.timetwo)
-      } else if(this.time === 720){
+        console.log(this.timetwo);
+      } else if (this.time === 720) {
         this.pauseTimer();
-        console.log("se termino tu tiempo");
+        console.log('se termino tu tiempo');
         this.answers();
       } else {
-        this.time++
+        this.time++;
         this.timetwo == this.time;
-        console.log(this.timetwo)
+        console.log(this.timetwo);
       }
     }, 1000);
   }
@@ -76,28 +138,25 @@ export class WonderlicComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  
-transform (value: number, args?: any){
+  transform(value: number, args?: any) {
+    const hours: number = Math.floor(value / 60);
+    const minutes: number = value - hours * 60;
 
-  const hours: number = Math.floor(value / 60);
-  const minutes: number = (value - hours * 60);
-
-  if (hours < 10 && minutes < 10) {
-    return '0' + hours + ' : 0' + (value - hours * 60);
-}
-if (hours > 10 && minutes > 10) {
-    return '0' + hours + ' : ' + (value - hours * 60);
-}
-if (hours > 10 && minutes < 10) {
-    return hours + ' : 0' + (value - hours * 60);
-}
-if (minutes > 10) {
-    return '0' + hours + ' : ' + (value - hours * 60);
-}
-}
+    if (hours < 10 && minutes < 10) {
+      return '0' + hours + ' : 0' + (value - hours * 60);
+    }
+    if (hours > 10 && minutes > 10) {
+      return '0' + hours + ' : ' + (value - hours * 60);
+    }
+    if (hours > 10 && minutes < 10) {
+      return hours + ' : 0' + (value - hours * 60);
+    }
+    if (minutes > 10) {
+      return '0' + hours + ' : ' + (value - hours * 60);
+    }
+  }
 
   startForm(): void {
-
     this.formPreguntas = new FormGroup({
       1: new FormControl('', { nonNullable: true }),
       2: new FormControl('', { nonNullable: true }),
@@ -158,11 +217,10 @@ if (minutes > 10) {
     }
     console.log(this.respuestas);
   }
-  
-  answers() {
 
+  answers() {
     this.pauseTimer();
-    this.formPreguntas.getRawValue()
+  /*this.formPreguntas.getRawValue();*/
 
     let incorrectas = [];
     let correctas = [];
@@ -197,13 +255,27 @@ if (minutes > 10) {
 
     //this.formPreguntas.getRawValue();
 
-    console.log(this.formPreguntas.value)
+    console.log(this.formPreguntas.value);
+    console.log(this.formPreguntas.getRawValue())
 
-    this.form = Object.values(this.formPreguntas.value);
+    /*this.form = Object.values(this.formPreguntas.value);
     console.log(this.form);
-    console.log(this.form.length);
+    console.log(this.form.length);*/
 
-    
+    this.userAns = Object.values(this.formPreguntas.getRawValue());
+    console.log(this.ansWonderlic);
+      console.log(this.userAns);
+      this.userAns.forEach((answer, index) => {
+        if (answer == this.ansWonderlic[index]) {
+          //this.correct[index] = answer;
+          this.correctas.push(answer);
+          console.log(this.correctas, 'correctas');
+          //console.log(this.correct, 'correct');
+        } else {
+          this.incorrectas.push(answer);
+          console.log(this.incorrectas, 'incorrectas');
+        } 
+      });
 
     /*for (let won of this.wonderlic) {
       if (won === this.formPreguntas.value[i]){
@@ -213,17 +285,17 @@ if (minutes > 10) {
       } 
     }*/
 
-    for(let answer of this.form){
+    /*for (let answer of this.form) {
       let res = this.respuestas.includes(answer);
       console.log(res);
-      if(res == true){
+      if (res == true) {
         correctas.push(answer);
         console.log(correctas);
       } else {
         incorrectas.push(answer);
         console.log(incorrectas);
-    }
-    }
+      }
+    }*/
 
     /*for (let final of this.form) {
       let res = this.respuestas.includes(final);
@@ -237,20 +309,39 @@ if (minutes > 10) {
       }
     }*/
 
-    if (correctas.length < 14) {
-      this.resultado = 'Resultado: Inferior - ' + correctas.length + '/' + this.respuestas.length;
+    console.log(this.correctas.length);
+
+    if (this.correctas.length < 14) {
+      this.resultado =
+        'Resultado: Inferior - ' +
+        this.correctas.length +
+        '/' +
+        this.ansWonderlic.length;
       console.log('Inferior');
-    } else if (correctas.length >= 14 && correctas.length <= 20) {
-      this.resultado = 'Resultado: Inferior a la media - ' + correctas.length + '/' + this.respuestas.length;
+    } else if (this.correctas.length >= 14 && this.correctas.length <= 20) {
+      this.resultado =
+        'Resultado: Inferior a la media - ' +
+        this.correctas.length +
+        '/' +
+        this.ansWonderlic.length;
       console.log('Inferior a la media');
-    } else if (correctas.length >= 21 && correctas.length <= 26) {
-      this.resultado = 'Media';
+    } else if (this.correctas.length >= 21 && this.correctas.length <= 26) {
+      this.resultado = 'Media - ' +
+      this.correctas.length +
+      '/' +
+      this.ansWonderlic.length;
       console.log('Media');
-    } else if (correctas.length >= 27 && correctas.length <= 32) {
-      this.resultado = 'Superior a la media';
+    } else if (this.correctas.length >= 27 && this.correctas.length <= 32) {
+      this.resultado = 'Superior a la media - ' +
+      this.correctas.length +
+      '/' +
+      this.ansWonderlic.length;;
       console.log('Superior a la media');
-    } else if (correctas.length >= 33) {
-      this.resultado = 'Superior';
+    } else if (this.correctas.length >= 33) {
+      this.resultado = 'Superior - ' +
+      this.correctas.length +
+      '/' +
+      this.ansWonderlic.length;;
       console.log('Superior');
     }
   }

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelpersService {
   public correctas = {} as any;
+  public enter: number = 0;
+  public fecha: any;
 
-  constructor() { }
+  constructor(public router : Router) { }
 
   public fillAnswers(arr:any){
     for (let ans in arr){
@@ -15,6 +18,21 @@ export class HelpersService {
     console.log(this.correctas);
 
     return this.correctas;
+  }
+
+
+  public access(id:any){
+    if(id == 1){
+    this.router.navigate(['/wonderlic']);
+    this.enter = 1;
+    }else if(id == 2){
+      this.router.navigate(['/serieUno']);
+      this.enter = 1;
+    }
+  }
+
+  public reintento(){
+
   }
 
   

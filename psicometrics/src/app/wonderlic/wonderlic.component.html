@@ -1,6 +1,9 @@
-<div class="form-group container-fluid" *ngIf="timetwo < 720">
-  <div class="static">
+<div class="form-group container-fluid" *ngIf="timeLeft > 0; else noTime">
+  <!--<div class="static">
     <p>Tiempo transcurrido: {{ transform(time) }}</p>
+  </div>-->
+  <div class="static">
+    <p>Tiempo restante: {{ transform(timeLeft) }}</p>
   </div>
   <br />
   <form [formGroup]="formPreguntas" (ngSubmit)="answers()">
@@ -13,48 +16,47 @@
           <img src="./assets/img/{{ question.image }}" alt="" class="image" />
         </div>
       </div>
-      
-        <div
-          class="form-check form-check-inline"
-          *ngFor="let answer of question.answers; let j = index"
-        >
-          <div *ngIf="answer.name != 'string' && answer.name != 'number'">
+
+      <div
+        class="form-check form-check-inline"
+        *ngFor="let answer of question.answers; let j = index"
+      >
+        <div *ngIf="answer.name != 'string' && answer.name != 'number'">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="{{ answer.id }}"
+            formControlName="{{ question.question.id }}"
+          />
+          <label class="form-check-label" for="inlineRadio1">{{
+            answer.name
+          }}</label>
+        </div>
+        <div *ngIf="answer.name == 'number'">
+          <div class="form-check form-check-inline">
             <input
-              class="form-check-input"
-              type="radio"
-              id="inlineRadio1"
-              value="{{ answer.id }}"
+              type="text"
+              class="form-control"
+              placeholder="Ingresa tu respuesta"
+              formControlName="{{ question.question.id }}"
+              onkeypress="return /[0-9.]/i.test(event.key)"
+            />
+          </div>
+        </div>
+        <div *ngIf="answer.name == 'string'">
+          <div class="form-check form-check-inline">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ingresa tu respuesta"
+              onkeypress="return /[a-z]/i.test(event.key)"
               formControlName="{{ question.question.id }}"
             />
-            <label class="form-check-label" for="inlineRadio1">{{
-              answer.name
-            }}</label>
           </div>
-          <div *ngIf="answer.name == 'number'">
-            <div class="form-check form-check-inline">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Ingresa tu respuesta"
-                formControlName="{{ question.question.id }}"
-                onkeypress="return /[0-9.]/i.test(event.key)"
-              />
-            </div>
-          </div>
-          <div *ngIf="answer.name == 'string'">
-            <div class="form-check form-check-inline">
-          <input
-          type="text"
-          class="form-control"
-          placeholder="Ingresa tu respuesta"
-          onkeypress="return /[a-z]/i.test(event.key)"
-          formControlName="{{ question.question.id }}"
-        />
-      </div>
-      </div>
         </div>
-      
-      
+      </div>
+
       <!--<div class="form-check form-check-inline">
         <input
           class="form-check-input"
@@ -1012,8 +1014,9 @@
     </button>
   </form>-->
 
-  <div *ngIf="userAns.length != 0 && time < 720">
+  <div *ngIf="userAns.length != 0 && timeLeft > 0">
     <p>{{ this.resultado }}</p>
+    <p>{{this.aplicacion}}</p>
     <button
       [routerLink]="['']"
       routerLinkActive="router-link-active"
@@ -1037,24 +1040,26 @@
         Regresar al inicio
       </button>
     </div>
-  </div>
-</div>-->
-  <ng-template #noTime>
-    <div
-      class="d-flex justify-content-center align-items-center"
-      *ngIf="time > 720"
-    >
-      <p class="text-center text10">Tu tiempo termino</p>
-    </div>
-    <div *ngIf="form.length != 0">
-      <p>{{ this.resultado }}</p>
-      <button
-        [routerLink]="['']"
-        routerLinkActive="router-link-active"
-        class="btn btn-primary"
-      >
-        Regresar al inicio
-      </button>
-    </div>
-  </ng-template>
+  </div>-->
+
 </div>
+<ng-template #noTime>
+  <div
+    class="d-flex justify-content-center align-items-center"
+  >
+    <p class="text-center text10">Tu tiempo termino</p>
+  </div>
+  <div>
+    <p>{{ this.resultado }}</p>
+    <p>{{this.aplicacion}}</p>
+    <button
+      [routerLink]="['']"
+      routerLinkActive="router-link-active"
+      class="btn btn-primary"
+    >
+      Regresar al inicio
+    </button>
+  </div>
+</ng-template>
+  
+

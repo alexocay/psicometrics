@@ -29,6 +29,7 @@ export class SeerieUnoComponent implements OnInit {
 
   //formulario primera seccion
   formUno: QuestionsForm;
+  
 
   //Respuestas correctas por sección
   ansUno = ['2', '1', '2', '1', '2', '4', '3', '1', '3', '3', '3', '2', '2', '3', '2', '3'];
@@ -40,13 +41,24 @@ export class SeerieUnoComponent implements OnInit {
   incorrectas: string[] = [];
   correctas: string[] = [];
 
+  timeLeft: number = 120; //2 minutos
+  interval: any;
+
+
   constructor(private router:Router, public helpers: HelpersService) {}
 
   ngOnInit(): void {
-    this.startForm();
+    if (this.helpers.enter == 1) {
+      this.startForm();
+      this.startTimer();
+      //this.getAnswer();
+      console.log(this.questions);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
-  startForm(seccion?: any): void {
+  startForm(): void {
       this.formUno = new FormGroup({
         1: new FormControl('', { nonNullable: true }),
         2: new FormControl('', { nonNullable: true }),
@@ -66,10 +78,57 @@ export class SeerieUnoComponent implements OnInit {
         16: new FormControl('', { nonNullable: true }),
       });
     }
+
+    startTimer() {
+      /*console.log('=====>');
+      this.interval = setInterval(() => {
+        if (this.time === 0) {
+          this.time++;
+          this.timetwo = this.time;
+          console.log(this.timetwo);
+        } else if (this.time === 720) {
+          this.pauseTimer();
+          console.log('se termino tu tiempo');
+          this.answers();
+        } else {
+          this.time++;
+          this.timetwo == this.time;
+          console.log(this.timetwo);
+        }
+      }, 1000);*/
+      this.interval = setInterval(() => {
+        if (this.timeLeft > 0) {
+          this.timeLeft--;
+        } else if (this.timeLeft === 0) {
+          console.log('se termino tu tiempo');
+          this.evaluateForm();
+        }
+      }, 1000);
+    }
+  
+    pauseTimer() {
+      clearInterval(this.interval);
+    }
+  
+    transform(value: number, args?: any) {
+      
+      const minutes: number = Math.floor(value / 60);
+      const seconds: number = value - minutes * 60;
+  
+      if (minutes < 10 && seconds < 10) {
+        return '0' + minutes + ' : 0' + seconds;
+      } else if (minutes < 10 && seconds > 10) {
+        return '0' + minutes + ' : ' + seconds;
+      } else if (minutes > 10 && seconds < 10) {
+        return minutes + ' : 0' + seconds;
+      } else {
+        return minutes + ' : ' + seconds;
+      }
+    }
   
 
   evaluateForm(): void {
-    
+    this.pauseTimer();
     if(this.formUno.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
       /*console.log(this.ansUno)
@@ -102,7 +161,7 @@ export class SeerieUnoComponent implements OnInit {
       });
 
       this.helpers.fillAnswers({uno: this.correct});
-
+      this.helpers.enter = 2;
       this.router.navigate(['/serieDos']);
     } else {
       //si el primer formulario no es valido

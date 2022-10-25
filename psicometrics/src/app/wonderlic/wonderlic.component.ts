@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -6,10 +5,14 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 import data from './data';
 import { QuestionsForm } from './form.model';
 import { FormsService } from './forms.service';
+import { HelpersService } from '../terman-merril/helpers.service';
+import { formatDate } from '@angular/common';
 
 interface Question {
   question: any;
@@ -24,22 +27,26 @@ interface Question {
 })
 export class WonderlicComponent implements OnInit {
   formPreguntas: FormGroup;
+  currentDate: any;
 
-  time: number = 0;
+  /*time: number = 0;
   timetwo: any;
+  interval: any;*/
+
+  timeLeft: number = 720;
   interval: any;
 
   question$: Observable<Question>;
   questions: Question[] = data;
 
-  wonderlic = [
+  /*wonderlic = [
     { question: '1', answer: 3 },
     { question: '2', answer: 3 },
     { question: '3', answer: 2 },
     { question: '4', answer: 2 },
-  ];
+  ];*/
 
- ansWonderlic = [
+  ansWonderlic = [
     '4',
     '2',
     '3',
@@ -97,26 +104,36 @@ export class WonderlicComponent implements OnInit {
   respuestas: string[] = [];
   form: string[] = [];
   resultado = '';
+  aplicacion = '';
 
   new: any;
 
   incorrectas: string[] = [];
   correctas: string[] = [];
 
+  enter: any;
+
   constructor(
     private formBuilder: FormBuilder,
-    private formService: FormsService
+    private formService: FormsService,
+    private router: Router,
+    public helpers: HelpersService
   ) {}
 
   ngOnInit(): void {
-    this.startForm();
-    this.getAnswer();
-    this.startTimer();
-    console.log(this.questions);
+    if (this.helpers.enter == 1) {
+      this.currentDate = new Date();
+      this.startForm();
+      this.startTimer();
+      //this.getAnswer();
+      console.log(this.questions);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   startTimer() {
-    console.log('=====>');
+    /*console.log('=====>');
     this.interval = setInterval(() => {
       if (this.time === 0) {
         this.time++;
@@ -131,6 +148,14 @@ export class WonderlicComponent implements OnInit {
         this.timetwo == this.time;
         console.log(this.timetwo);
       }
+    }, 1000);*/
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else if (this.timeLeft === 0) {
+        console.log('se termino tu tiempo');
+        this.answers();
+      }
     }, 1000);
   }
 
@@ -139,7 +164,7 @@ export class WonderlicComponent implements OnInit {
   }
 
   transform(value: number, args?: any) {
-    const hours: number = Math.floor(value / 60);
+    /*const hours: number = Math.floor(value / 60);
     const minutes: number = value - hours * 60;
 
     if (hours < 10 && minutes < 10) {
@@ -153,6 +178,18 @@ export class WonderlicComponent implements OnInit {
     }
     if (minutes > 10) {
       return '0' + hours + ' : ' + (value - hours * 60);
+    }*/
+    const minutes: number = Math.floor(value / 60);
+    const seconds: number = value - minutes * 60;
+
+    if (minutes < 10 && seconds < 10) {
+      return '0' + minutes + ' : 0' + seconds;
+    } else if (minutes < 10 && seconds > 10) {
+      return '0' + minutes + ' : ' + seconds;
+    } else if (minutes > 10 && seconds < 10) {
+      return minutes + ' : 0' + seconds;
+    } else {
+      return minutes + ' : ' + seconds;
     }
   }
 
@@ -211,16 +248,19 @@ export class WonderlicComponent implements OnInit {
     });
   }
 
-  getAnswer() {
+  /*getAnswer() {
     for (let ans of this.wonderlic) {
       this.respuestas.push(ans.answer.toString());
     }
     console.log(this.respuestas);
-  }
+  }*/
 
   answers() {
     this.pauseTimer();
-  /*this.formPreguntas.getRawValue();*/
+    let date = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
+    this.helpers.fecha = date;
+    console.log(date)
+    /*this.formPreguntas.getRawValue();*/
 
     let incorrectas = [];
     let correctas = [];
@@ -256,7 +296,7 @@ export class WonderlicComponent implements OnInit {
     //this.formPreguntas.getRawValue();
 
     console.log(this.formPreguntas.value);
-    console.log(this.formPreguntas.getRawValue())
+    console.log(this.formPreguntas.getRawValue());
 
     /*this.form = Object.values(this.formPreguntas.value);
     console.log(this.form);
@@ -264,18 +304,18 @@ export class WonderlicComponent implements OnInit {
 
     this.userAns = Object.values(this.formPreguntas.getRawValue());
     console.log(this.ansWonderlic);
-      console.log(this.userAns);
-      this.userAns.forEach((answer, index) => {
-        if (answer == this.ansWonderlic[index]) {
-          //this.correct[index] = answer;
-          this.correctas.push(answer);
-          console.log(this.correctas, 'correctas');
-          //console.log(this.correct, 'correct');
-        } else {
-          this.incorrectas.push(answer);
-          console.log(this.incorrectas, 'incorrectas');
-        } 
-      });
+    console.log(this.userAns);
+    this.userAns.forEach((answer, index) => {
+      if (answer == this.ansWonderlic[index]) {
+        //this.correct[index] = answer;
+        this.correctas.push(answer);
+        console.log(this.correctas, 'correctas');
+        //console.log(this.correct, 'correct');
+      } else {
+        this.incorrectas.push(answer);
+        console.log(this.incorrectas, 'incorrectas');
+      }
+    });
 
     /*for (let won of this.wonderlic) {
       if (won === this.formPreguntas.value[i]){
@@ -317,6 +357,7 @@ export class WonderlicComponent implements OnInit {
         this.correctas.length +
         '/' +
         this.ansWonderlic.length;
+        this.aplicacion = 'Fecha de aplicación: ' + date + 'Puedas aplicar la prueba de nuevo en 6 meses';
       console.log('Inferior');
     } else if (this.correctas.length >= 14 && this.correctas.length <= 20) {
       this.resultado =
@@ -324,24 +365,25 @@ export class WonderlicComponent implements OnInit {
         this.correctas.length +
         '/' +
         this.ansWonderlic.length;
+        this.aplicacion = 'Fecha de aplicación: ' + date + 'Puedas aplicar la prueba de nuevo en 6 meses';
       console.log('Inferior a la media');
     } else if (this.correctas.length >= 21 && this.correctas.length <= 26) {
-      this.resultado = 'Media - ' +
-      this.correctas.length +
-      '/' +
-      this.ansWonderlic.length;
+      this.resultado =
+        'Media - ' + this.correctas.length + '/' + this.ansWonderlic.length;
+        this.aplicacion = 'Fecha de aplicación: ' + date + 'Puedas aplicar la prueba de nuevo en 6 meses';
       console.log('Media');
     } else if (this.correctas.length >= 27 && this.correctas.length <= 32) {
-      this.resultado = 'Superior a la media - ' +
-      this.correctas.length +
-      '/' +
-      this.ansWonderlic.length;;
+      this.resultado =
+        'Superior a la media - ' +
+        this.correctas.length +
+        '/' +
+        this.ansWonderlic.length;
+        this.aplicacion = 'Fecha de aplicación: ' + date + 'Puedas aplicar la prueba de nuevo en 6 meses';
       console.log('Superior a la media');
     } else if (this.correctas.length >= 33) {
-      this.resultado = 'Superior - ' +
-      this.correctas.length +
-      '/' +
-      this.ansWonderlic.length;;
+      this.resultado =
+        'Superior - ' + this.correctas.length + '/' + this.ansWonderlic.length;
+        this.aplicacion = 'Fecha de aplicación: ' + date + 'Puedas aplicar la prueba de nuevo en 6 meses';
       console.log('Superior');
     }
   }

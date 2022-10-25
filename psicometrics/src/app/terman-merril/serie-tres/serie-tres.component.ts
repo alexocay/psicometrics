@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import data from './data';
 import {
   FormGroup,
@@ -33,10 +32,21 @@ export class SerieTresComponent implements OnInit {
   incorrectas: string[] = [];
   correctas: string[] = [];
 
+  timeLeft: number = 120; //2 minutos
+  interval: any;
+
   constructor(private router:Router, public helpers: HelpersService) { }
 
   ngOnInit(): void {
-    this.startForm();
+    if (this.helpers.enter == 3){
+      this.startForm();
+      this.startTimer();
+        //this.getAnswer();
+        console.log(this.questions);
+      } else {
+        this.router.navigate(['']);
+      }
+    
   }
 
   startForm(){
@@ -74,8 +84,55 @@ export class SerieTresComponent implements OnInit {
     });
   }
 
-  evaluateForm(): void {
+  startTimer() {
+    /*console.log('=====>');
+    this.interval = setInterval(() => {
+      if (this.time === 0) {
+        this.time++;
+        this.timetwo = this.time;
+        console.log(this.timetwo);
+      } else if (this.time === 720) {
+        this.pauseTimer();
+        console.log('se termino tu tiempo');
+        this.answers();
+      } else {
+        this.time++;
+        this.timetwo == this.time;
+        console.log(this.timetwo);
+      }
+    }, 1000);*/
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else if (this.timeLeft === 0) {
+        console.log('se termino tu tiempo');
+        this.evaluateForm();
+      }
+    }, 1000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  transform(value: number, args?: any) {
     
+    const minutes: number = Math.floor(value / 60);
+    const seconds: number = value - minutes * 60;
+
+    if (minutes < 10 && seconds < 10) {
+      return '0' + minutes + ' : 0' + seconds;
+    } else if (minutes < 10 && seconds > 10) {
+      return '0' + minutes + ' : ' + seconds;
+    } else if (minutes > 10 && seconds < 10) {
+      return minutes + ' : 0' + seconds;
+    } else {
+      return minutes + ' : ' + seconds;
+    }
+  }
+
+  evaluateForm(): void {
+    this.pauseTimer();
     if(this.formTres.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
       /*console.log(this.ansUno)
@@ -92,6 +149,7 @@ export class SerieTresComponent implements OnInit {
           console.log(this.incorrectas, 'incorrectas');
         }
       } */
+      this.pauseTimer();
       console.log(this.ansTres)
       this.user = Object.values(this.formTres.getRawValue());
       console.log(this.user);
@@ -110,7 +168,7 @@ export class SerieTresComponent implements OnInit {
       });
 
       this.helpers.fillAnswers({tres: this.correct});
-
+      this.helpers.enter = 4;
       this.router.navigate(['/serieCuatro']);
     } else {
       //si el primer formulario no es valido

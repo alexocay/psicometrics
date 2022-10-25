@@ -32,12 +32,22 @@ export class SerieDosComponent implements OnInit {
   user: string[] = [];
 
   incorrectas: string[] = [];
-  correctas: string[] = [];
+  
+  timeLeft: number = 120;
+  interval: any;
+
 
   constructor(private router:Router, public helpers: HelpersService) { }
 
   ngOnInit(): void {
+    if (this.helpers.enter == 2){
     this.startForm();
+    this.startTimer();
+      //this.getAnswer();
+      console.log(this.questions);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   startForm(){
@@ -55,6 +65,54 @@ export class SerieDosComponent implements OnInit {
       11: new FormControl('', { nonNullable: true }),
     });
   }
+
+  startTimer() {
+    /*console.log('=====>');
+    this.interval = setInterval(() => {
+      if (this.time === 0) {
+        this.time++;
+        this.timetwo = this.time;
+        console.log(this.timetwo);
+      } else if (this.time === 720) {
+        this.pauseTimer();
+        console.log('se termino tu tiempo');
+        this.answers();
+      } else {
+        this.time++;
+        this.timetwo == this.time;
+        console.log(this.timetwo);
+      }
+    }, 1000);*/
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else if (this.timeLeft === 0) {
+        console.log('se termino tu tiempo');
+        this.evaluateForm();
+      }
+    }, 1000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  transform(value: number, args?: any) {
+    
+    const minutes: number = Math.floor(value / 60);
+    const seconds: number = value - minutes * 60;
+
+    if (minutes < 10 && seconds < 10) {
+      return '0' + minutes + ' : 0' + seconds;
+    } else if (minutes < 10 && seconds > 10) {
+      return '0' + minutes + ' : ' + seconds;
+    } else if (minutes > 10 && seconds < 10) {
+      return minutes + ' : 0' + seconds;
+    } else {
+      return minutes + ' : ' + seconds;
+    }
+  }
+
 
   evaluateForm(): void {
     
@@ -90,7 +148,7 @@ export class SerieDosComponent implements OnInit {
       });
 
       this.helpers.fillAnswers({dos: this.correct});
-
+      this.helpers.enter = 3;
       this.router.navigate(['/serieTres']);
     } else {
       //si el primer formulario no es valido

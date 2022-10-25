@@ -32,9 +32,9 @@ e) dinero ......................................................................
                 class="form-check-input"
                 type="checkbox"
                 id="inlineRadio1"
-                (click)="addClassType($event, question.question.id)"
+                (click)="onChange(question.question.id, $event)"
                 value="{{ answer.id }}"
-                formControlName="{{ question.question.id }}"
+                [checked]="question.question.selectedAnswers.includes(answer.id)"
               />
               <label class="form-check-label" for="inlineRadio1">{{
                 answer.name

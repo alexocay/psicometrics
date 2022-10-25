@@ -32,6 +32,8 @@ export class SerieTresComponent implements OnInit {
   incorrectas: string[] = [];
   correctas: string[] = [];
 
+  selectedAnswers = {} as any;
+
   timeLeft: number = 120; //2 minutos
   interval: any;
 
@@ -133,7 +135,6 @@ export class SerieTresComponent implements OnInit {
 
   evaluateForm(): void {
     this.pauseTimer();
-    if(this.formTres.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
       /*console.log(this.ansUno)
       this.userUno = Object.values(this.formUno.getRawValue());
@@ -149,7 +150,6 @@ export class SerieTresComponent implements OnInit {
           console.log(this.incorrectas, 'incorrectas');
         }
       } */
-      this.pauseTimer();
       console.log(this.ansTres)
       this.user = Object.values(this.formTres.getRawValue());
       console.log(this.user);
@@ -170,15 +170,7 @@ export class SerieTresComponent implements OnInit {
       this.helpers.fillAnswers({tres: this.correct});
       this.helpers.enter = 4;
       this.router.navigate(['/serieCuatro']);
-    } else {
-      //si el primer formulario no es valido
-      //muestro un mensaje de error
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor complete todos los campos',
-      });
-    }
+    
     
 
     /*console.log(arrAns, arrCom, seccion, see);

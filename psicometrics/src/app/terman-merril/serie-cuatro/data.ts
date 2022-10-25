@@ -1,7 +1,7 @@
 const data = [{
-    question:{id:1, text:'1. UN CIRCULO siempre tiene'}, answers: [{id:1, name:'Altura'}, {id:2, name:'Circuferencia'}, {id:3, name:'Latitud'}, {id:4, name:'Longitud'}, {id:5, name:'Radio'}]
+    question:{id:1, text:'1. UN CIRCULO siempre tiene'}, answers: [{id:'a1', name:'Altura'}, {id:'a2', name:'Circuferencia'}, {id:'a3', name:'Latitud'}, {id:'a4', name:'Longitud'}, {id:'a5', name:'Radio'}]
 }, {
-    question:{id:2, text:'2. Un PÁJARO siempre tiene:'}, answers: [{id:1, name:'Huesos'}, {id:2, name:'Huevos'}, {id:3, name:'Pico'}, {id:4, name:'Nido'}, {id:5, name:'Canto'}]
+    question:{id:2, text:'2. Un PÁJARO siempre tiene:'}, answers: [{id:'b1', name:'Huesos'}, {id:'b2', name:'Huevos'}, {id:'b3', name:'Pico'}, {id:'b4', name:'Nido'}, {id:'b5', name:'Canto'}]
 },{
     question: { id:3, text:'3. La MÚSICA siempre tiene:'}, answers: [{id:1, name:'Oyente'}, {id:2, name:'Piano'}, {id:3, name:'Ritmo'}, {id:4, name:'Sonido'}, {id:5, name:'Violín'}],
 },{

@@ -7,7 +7,7 @@ import {
   FormControl,
   FormArray,
 } from '@angular/forms';
-import {HelpersService} from '../helpers.service'
+import { HelpersService } from '../helpers.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -19,10 +19,9 @@ interface Question {
 @Component({
   selector: 'app-serie-cuatro',
   templateUrl: './serie-cuatro.component.html',
-  styleUrls: ['./serie-cuatro.component.css']
+  styleUrls: ['./serie-cuatro.component.css'],
 })
 export class SerieCuatroComponent implements OnInit {
-
   questions: Question[] = data;
   arrClassType: any[] = [];
 
@@ -32,7 +31,67 @@ export class SerieCuatroComponent implements OnInit {
   correct = {} as any;
   incorrect = {} as any;
 
-  ansCuatro = ['a2', 'a5', 'b1', 'b3', 'c3', 'c4', 'd1', 'd5', 'e1', 'e5',];
+  ansUser = {
+    1: [2, 5],
+    2: [1, 3],
+    3: [3, 4],
+    4: [1, 5],
+    5: [1, 5],
+    6: [3, 5],
+    7: [2, 5],
+    8: [2, 5],
+    9: [1, 2],
+    10: [1, 3],
+    11: [2, 3],
+    12: [1, 4],
+    13: [2, 4],
+    14: [1, 4],
+    15: [1, 2],
+    16: [2, 5],
+    17: [1, 2],
+    18: [1, 3],
+  };
+
+  objResp = {} as any;
+
+  ansCuatro = [
+    'a2',
+    'a5',
+    'b1',
+    'b3',
+    'c3',
+    'c4',
+    'd1',
+    'd5',
+    'e1',
+    'e5',
+    'f3',
+    'f5',
+    'g2',
+    'g5',
+    'h2',
+    'h5',
+    'i1',
+    'i2',
+    'j1',
+    'j3',
+    'k2',
+    'k3',
+    'l1',
+    'l4',
+    'm2',
+    'm4',
+    'n1',
+    'n4',
+    'o1',
+    'o2',
+    'p2',
+    'p5',
+    'q1',
+    'q2',
+    'r1',
+    'r3',
+  ];
   user: string[] = [];
 
   incorrectas: string[] = [];
@@ -44,42 +103,24 @@ export class SerieCuatroComponent implements OnInit {
   selectedItemsList: any[] = [];
   checkedIDs = [];
 
-  constructor(private router:Router, public helpers: HelpersService, private fb: FormBuilder) { }
+  constructor(
+    private router: Router,
+    public helpers: HelpersService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    if (this.helpers.enter == 4){
+    if (this.helpers.enter == 4) {
       this.startForm();
-      this.startTimer();
-        //this.getAnswer();
-        console.log(this.questions);
-      } else {
-        this.router.navigate(['']);
-      }
-    
+      //this.startTimer();
+      //this.getAnswer();
+      console.log(this.questions);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
-  startForm(){
-    this.formCuatroD = this.fb.group({
-      1: this.fb.array([]),
-      2: this.fb.array([]),
-      3: this.fb.array([]),
-      4: this.fb.array([]),
-      5: this.fb.array([]),
-      6: this.fb.array([]),
-      7: this.fb.array([]),
-      8: this.fb.array([]),
-      9: this.fb.array([]),
-      10: this.fb.array([]),
-      11: this.fb.array([]),
-      12: this.fb.array([]),
-      13: this.fb.array([]),
-      14: this.fb.array([]),
-      15: this.fb.array([]),
-      16: this.fb.array([]),
-      17: this.fb.array([]),
-      18: this.fb.array([]),
-    });
-
+  startForm() {
     this.formCuatro = new FormGroup({
       1: new FormControl('', { nonNullable: true }),
       2: new FormControl('', { nonNullable: true }),
@@ -102,23 +143,10 @@ export class SerieCuatroComponent implements OnInit {
     });
   }
 
+  prueba(){
+    console.log('evento')
+  }
   startTimer() {
-    /*console.log('=====>');
-    this.interval = setInterval(() => {
-      if (this.time === 0) {
-        this.time++;
-        this.timetwo = this.time;
-        console.log(this.timetwo);
-      } else if (this.time === 720) {
-        this.pauseTimer();
-        console.log('se termino tu tiempo');
-        this.answers();
-      } else {
-        this.time++;
-        this.timetwo == this.time;
-        console.log(this.timetwo);
-      }
-    }, 1000);*/
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
@@ -134,11 +162,10 @@ export class SerieCuatroComponent implements OnInit {
   }
 
   transform(value: number, args?: any) {
-    
     const minutes: number = Math.floor(value / 60);
     const seconds: number = value - minutes * 60;
 
-    if (minutes < 10 && seconds < 10) {
+    if (minutes < 10 && seconds < 10) { 
       return '0' + minutes + ' : 0' + seconds;
     } else if (minutes < 10 && seconds > 10) {
       return '0' + minutes + ' : ' + seconds;
@@ -149,53 +176,49 @@ export class SerieCuatroComponent implements OnInit {
     }
   }
 
-  // Funcion para agregar o quitar el tipo de clase
- /* addClassType(event: any, name:any) {
-    if (event.target.checked) {
-      this.arrClassType.push(event.target.value);
+  /*saveResponses(question: any, event: any) {
+    if(Object.keys(this.objResp).includes(question.toString())) {
+      if(this.objResp[question].includes(event.target.value)) {
+        this.objResp[question].splice(this.objResp[question].indexOf(event.target.value), 1);
+      } else {
+      this.objResp[question].push(event.target.value);
+      }
     } else {
-      this.arrClassType = this.arrClassType.filter(
-        (item) => item !== event.target.value
-      );
-    this.formCuatro.controls[name].setValue(this.arrClassType);
+      this.objResp[question] = [event.target.value];
     }
-    console.log(this.arrClassType)
-    console.log(this.formCuatro.value); 
+    console.log(this.objResp);
   }*/
 
-  /*otherClassType(event: any, name:any) {
-    //si el checkbox se deselecciona borro el valor del input del array
-    if (!event.target.checked) {
-      //quitar la ultima posicion del array y limpiar el input
-      this.arrClassType.pop();
-      //y actualizo el objeto mentor
-      this.mentor.class_type = this.arrClassType;
-      this.formCuatro.controls[name].setValue('');
-    }
-    this.otherOption = event.target.checked;
-    /* console.log(this.arrClassType); 
-  }*/
+  changeValue(event:any, question:any){
+    if(!this.objResp[question])this.objResp[question]=[];
 
-  onChange(ans:any,event: any) {
-    //const emailFormArray = <FormArray>this.formCuatroD.controls[email];
-
-    if (event.target.checked) {
-      this.arrClassType.push(event.target.value);
+    if(event.target.checked){ //Si el checkbox esta seleccionado
+      console.log(event.target.checked)
+      if(this.objResp[question]?.length < 2){ //Si el array tiene menos de 2 elementos
+        if(this.objResp[question].includes(event.target.value)){ //Si el array ya contiene el valor
+          this.objResp[question].splice(this.objResp[question].indexOf(event.target.value), 1); //Elimina el valor del array
+        } else{
+            this.objResp[question]?.length!=0? this.objResp[question].push(event.target.value): this.objResp[question] = [event.target.value]; //Si el array esta vacio, agrega el valor, si no, agrega el valor al array
+        }
+      } else {
+        event.target.checked = false //Si el array tiene 2 elementos, deshabilita el checkbox
+      }
     } else {
-      this.arrClassType = this.arrClassType.filter(
-        (item) => item !== event.target.value
-      );
+      console.log(event.target.checked)
+      this.objResp[question].splice(this.objResp[question].indexOf(event.target.value), 1); //Elimina el valor del array
     }
-    console.log(this.arrClassType)
-    console.log(this.formCuatro.value);
+    console.log(this.objResp);
   }
 
+  sendResults(){
+    Object.entries(this.ansUser).forEach(([key,value]) => {
+      
+    });
+  }
 
   evaluateForm(): void {
     this.pauseTimer();
-    if(this.formCuatro.valid){
-      //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
-      /*console.log(this.ansUno)
+    /*console.log(this.ansUno)
       this.userUno = Object.values(this.formUno.getRawValue());
       console.log(this.userUno);
       for (let answer of this.userUno) {
@@ -209,39 +232,30 @@ export class SerieCuatroComponent implements OnInit {
           console.log(this.incorrectas, 'incorrectas');
         }
       } */
-      console.log(this.ansCuatro)
-      //this.user = Object.values(this.formCuatro.getRawValue());
-      this.user = this.arrClassType.sort();
-      console.log(this.user);
-      this.user.forEach((answer, index) => {
-        if (answer == this.ansCuatro[index]) {
-          this.correct[index] = answer;
-          console.log(this.correct, 'correctas');
-          //this.correctas.push(answer);
-          //console.log(this.correctas, 'correctas');
-        } else {
-          //this.incorrectas.push(answer);
-          //console.log(this.incorrectas, 'incorrectas');
-          this.incorrect[index] = answer;
-          console.log(this.incorrect, 'incorrectas');
-        } 
-      });
+    console.log(this.ansCuatro);
+    //this.user = Object.values(this.formCuatro.getRawValue());
+    this.user = this.arrClassType.sort();
+    console.log(this.user);
+    this.user.forEach((answer, index) => {
+      if (answer == this.ansCuatro[index]) {
+        this.correct[index] = answer;
+        console.log(this.correct, 'correctas');
+        //this.correctas.push(answer);
+        //console.log(this.correctas, 'correctas');
+      } else {
+        //this.incorrectas.push(answer);
+        //console.log(this.incorrectas, 'incorrectas');
+        this.incorrect[index] = answer;
+        console.log(this.incorrect, 'incorrectas');
+      }
+    });
 
-      this.helpers.fillAnswers({tres: this.correct});
-      this.helpers.enter = 4;
-      this.router.navigate(['/serieCuatro']);
-    } else {
-      //si el primer formulario no es valido
-      //muestro un mensaje de error
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor complete todos los campos',
-      });
-    }
-    
+    this.helpers.fillAnswers({ cuatro: this.correct });
+    this.helpers.enter = 5;
+    this.router.navigate(['/serieCinco']);
+  }
 
-    /*console.log(arrAns, arrCom, seccion, see);
+  /*console.log(arrAns, arrCom, seccion, see);
     if(seccion == 1){
      this.show=2
       this.startForm(2);
@@ -269,7 +283,4 @@ export class SerieCuatroComponent implements OnInit {
         console.log(this.incorrectas);
       }
     }*/
-    }
-
-
 }

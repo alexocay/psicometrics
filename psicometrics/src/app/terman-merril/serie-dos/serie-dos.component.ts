@@ -115,7 +115,7 @@ export class SerieDosComponent implements OnInit {
 
 
   evaluateForm(): void {
-    
+    this.pauseTimer();
     if(this.formDos.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
       /*console.log(this.ansUno)

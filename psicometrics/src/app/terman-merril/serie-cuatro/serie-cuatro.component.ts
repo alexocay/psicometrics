@@ -10,6 +10,7 @@ import {
 import { HelpersService } from '../helpers.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { __values } from 'tslib';
 
 interface Question {
   question: any;
@@ -210,10 +211,37 @@ export class SerieCuatroComponent implements OnInit {
     console.log(this.objResp);
   }
 
-  sendResults(){
-    Object.entries(this.ansUser).forEach(([key,value]) => {
-      
-    });
+  
+  deepEqual() {
+    const keys1 = Object.keys(this.objResp);
+    const keys2 = Object.keys(this.ansUser);
+  
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+  
+   /* for (const key of keys1) {
+      const val1 = this.objResp[key];
+      //const val2 = this.ansUser[key]=[];
+      //const areObjects = this.isObject(val1) && this.isObject(val2);
+      /*if (
+        //areObjects && !this.deepEqual(val1, val2) ||
+        //!areObjects && val1 !== val2
+      ) {
+        this.incorrect.push('incorrect');
+        console.log(this.incorrect);
+        return false;
+
+      }
+      this.correct.push('correct');
+      console.log(this.correct);
+      return true;
+    }*/
+    return true;
+  }
+
+  isObject(object:any) {
+    return object != null && typeof object === 'object';
   }
 
   evaluateForm(): void {

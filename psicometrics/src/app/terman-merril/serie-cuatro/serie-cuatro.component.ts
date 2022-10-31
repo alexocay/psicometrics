@@ -32,25 +32,25 @@ export class SerieCuatroComponent implements OnInit {
   correct = {} as any;
   incorrect = {} as any;
 
-  ansUser = {
+  ansUser: {} = {
     1: [2, 5],
     2: [1, 3],
-    3: [3, 4],
-    4: [1, 5],
-    5: [1, 5],
-    6: [3, 5],
-    7: [2, 5],
-    8: [2, 5],
-    9: [1, 2],
-    10: [1, 3],
-    11: [2, 3],
-    12: [1, 4],
-    13: [2, 4],
-    14: [1, 4],
-    15: [1, 2],
-    16: [2, 5],
-    17: [1, 2],
-    18: [1, 3],
+    3: ['3', '4'],
+    4: ['1', '5'],
+    5: ['1', '5'],
+    6: ['3', '5'],
+    7: ['2', '5'],
+    8: ['2', '5'],
+    9: ['1', '2'],
+    10: ['1', '3'],
+    11: ['2', '3'],
+    12: ['1', '4'],
+    13: ['2', '4'],
+    14: ['1', '4'],
+    15: ['1', '2'],
+    16: ['2', '5'],
+    17: ['1', '2'],
+    18: [1,3],
   };
 
   objResp = {} as any;
@@ -213,12 +213,11 @@ export class SerieCuatroComponent implements OnInit {
 
   
   deepEqual() {
-    const keys1 = Object.keys(this.objResp);
-    const keys2 = Object.keys(this.ansUser);
-  
-    if (keys1.length !== keys2.length) {
-      return false;
-    }
+    (Object.keys(this.objResp) as (keyof typeof this.objResp)[]).forEach((key, index) => {
+      // 👇️ name Tom 0, country Chile 1
+      console.log(key, this.objResp[key], index);
+      
+    });
   
    /* for (const key of keys1) {
       const val1 = this.objResp[key];
@@ -237,11 +236,6 @@ export class SerieCuatroComponent implements OnInit {
       console.log(this.correct);
       return true;
     }*/
-    return true;
-  }
-
-  isObject(object:any) {
-    return object != null && typeof object === 'object';
   }
 
   evaluateForm(): void {

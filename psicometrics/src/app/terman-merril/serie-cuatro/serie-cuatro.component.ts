@@ -33,24 +33,24 @@ export class SerieCuatroComponent implements OnInit {
   incorrect = {} as any;
 
   ansUser: {} = {
-    1: [2, 5],
-    2: [1, 3],
+    1: ['2', '5'],
+    2: ['1', '3'],
     3: ['3', '4'],
     4: ['1', '5'],
-    5: ['1', '5'],
+    5: ['2', '5'],
     6: ['3', '5'],
     7: ['2', '5'],
     8: ['2', '5'],
     9: ['1', '2'],
     10: ['1', '3'],
     11: ['2', '3'],
-    12: ['1', '4'],
-    13: ['2', '4'],
+    12: ['1', '2'],
+    13: ['4', '5'],
     14: ['1', '4'],
     15: ['1', '2'],
     16: ['2', '5'],
     17: ['1', '2'],
-    18: [1,3],
+    18: ['1','3'],
   };
 
   objResp = {} as any;
@@ -98,7 +98,7 @@ export class SerieCuatroComponent implements OnInit {
   incorrectas: string[] = [];
   correctas: string[] = [];
 
-  timeLeft: number = 120; //2 minutos
+  timeLeft: number = 180; //3 minutos
   interval: any;
 
   selectedItemsList: any[] = [];
@@ -113,7 +113,7 @@ export class SerieCuatroComponent implements OnInit {
   ngOnInit(): void {
     if (this.helpers.enter == 4) {
       this.startForm();
-      //this.startTimer();
+      this.startTimer();
       //this.getAnswer();
       console.log(this.questions);
     } else {
@@ -153,7 +153,7 @@ export class SerieCuatroComponent implements OnInit {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
         console.log('se termino tu tiempo');
-        this.evaluateForm();
+        this.deepEqual();
       }
     }, 1000);
   }
@@ -213,12 +213,42 @@ export class SerieCuatroComponent implements OnInit {
 
   
   deepEqual() {
-    (Object.keys(this.objResp) as (keyof typeof this.objResp)[]).forEach((key, index) => {
+    this.pauseTimer();
+    this.correct = {};
+    this.incorrect = {};
+    (Object.keys(this.ansUser) as (keyof typeof this.ansUser)[]).forEach((key, index) => {
       // 👇️ name Tom 0, country Chile 1
-      console.log(key, this.objResp[key], index);
-      
+      console.log(key, this.ansUser[key], index);
+      Object.entries(this.objResp).forEach(([key2, value], index2) => {
+        // 👇️ name Tom 0, country Chile 1
+        console.log(key2, value, index2);
+        if (key == key2) {
+          console.log(key, key2)
+
+          if (JSON.stringify(this.objResp[key2] === this.ansUser[key])) {
+            console.log(this.ansUser[key], this.objResp[key2])
+            this.correctas.push(key);
+            console.log('correctas', this.correctas);
+            this.correct[key] = value;
+            console.log('correct', this.correct);
+          } else {
+            console.log(this.ansUser[key], this.objResp[key2])
+            this.incorrectas.push(key);
+            console.log('incorrectas', this.incorrectas);
+            this.incorrect[key] = value;
+            console.log('incorrect', this.incorrect);
+          }
+        }
+      });
     });
-  
+
+
+    let final = this.helpers.finalTM + Object.keys(this.correct).length;
+      this.helpers.fillAnswers({cuatro: final});
+      this.helpers.finalTM = final;
+      console.log('final', this.helpers.finalTM);
+    this.helpers.enter = 5;
+    this.router.navigate(['/serieCinco']);
    /* for (const key of keys1) {
       const val1 = this.objResp[key];
       //const val2 = this.ansUser[key]=[];

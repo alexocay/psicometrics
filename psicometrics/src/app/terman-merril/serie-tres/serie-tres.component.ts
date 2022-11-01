@@ -167,7 +167,10 @@ export class SerieTresComponent implements OnInit {
         } 
       });
 
-      this.helpers.fillAnswers({tres: this.correct});
+      let final = this.helpers.finalTM + (Object.keys(this.correct).length - Object.keys(this.incorrect).length);
+      this.helpers.fillAnswers({tres: final});
+      this.helpers.finalTM = final;
+      console.log('final', this.helpers.finalTM);
       this.helpers.enter = 4;
       this.router.navigate(['/serieCuatro']);
     

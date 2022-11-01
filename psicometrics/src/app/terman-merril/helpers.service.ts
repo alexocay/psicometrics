@@ -8,6 +8,7 @@ export class HelpersService {
   public correctas = {} as any;
   public enter: number = 0;
   public fecha: any;
+  public finalTM: number;
 
   constructor(public router : Router) { }
 
@@ -31,8 +32,10 @@ export class HelpersService {
     }
   }
 
-  public reintento(){
-
+  public termanMeril(number:any){
+    this.finalTM =+ number;
+    console.log(this.finalTM);
+    return this.finalTM;
   }
 
   

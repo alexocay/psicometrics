@@ -147,7 +147,10 @@ export class SerieDosComponent implements OnInit {
         } 
       });
 
-      this.helpers.fillAnswers({dos: this.correct});
+      let final = this.helpers.finalTM + (Object.keys(this.correct).length * 2);
+      this.helpers.fillAnswers({dos: final});
+      this.helpers.finalTM = final;
+      console.log('final', this.helpers.finalTM);
       this.helpers.enter = 3;
       this.router.navigate(['/serieTres']);
     } else {

@@ -160,7 +160,11 @@ export class SeerieUnoComponent implements OnInit {
         } 
       });
 
-      this.helpers.fillAnswers({uno: this.correct});
+      let final =  Object.keys(this.correct).length;
+      console.log(final);
+      this.helpers.fillAnswers({uno: final});
+      this.helpers.finalTM = final;
+      console.log('final', this.helpers.finalTM);
       this.helpers.enter = 2;
       this.router.navigate(['/serieDos']);
     } else {

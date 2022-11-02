@@ -1,0 +1,1069 @@
+<div *ngIf="this.helpers.test === 1">
+    <div class="form-group container-fluid" *ngIf="timeLeft > 0; else noTime">
+        <!--<div class="static">
+          <p>Tiempo transcurrido: {{ transform(time) }}</p>
+        </div>-->
+        <div class="static">
+          <p>Tiempo restante: {{ transform(timeLeft) }}</p>
+        </div>
+        <br />
+        <form [formGroup]="formPreguntas" (ngSubmit)="answers()">
+          <div class="form-group" *ngFor="let question of questions; let i = index">
+            <div>
+              <label for="exampleFormControlInput1">
+                {{ question.question.text }}</label
+              >
+              <div class="image" *ngIf="question.image != '0'">
+                <img src="./assets/img/{{ question.image }}" alt="" class="image" />
+              </div>
+            </div>
+      
+            <div
+              class="form-check form-check-inline"
+              *ngFor="let answer of question.answers; let j = index"
+            >
+              <div *ngIf="answer.name != 'string' && answer.name != 'number'">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="inlineRadio1"
+                  value="{{ answer.id }}"
+                  formControlName="{{ question.question.id }}"
+                />
+                <label class="form-check-label" for="inlineRadio1">{{
+                  answer.name
+                }}</label>
+              </div>
+              <div *ngIf="answer.name == 'number'">
+                <div class="form-check form-check-inline">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingresa tu respuesta"
+                    formControlName="{{ question.question.id }}"
+                    onkeypress="return /[0-9.]/i.test(event.key)"
+                  />
+                </div>
+              </div>
+              <div *ngIf="answer.name == 'string'">
+                <div class="form-check form-check-inline">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingresa tu respuesta"
+                    onkeypress="return /[a-z]/i.test(event.key)"
+                    formControlName="{{ question.question.id }}"
+                  />
+                </div>
+              </div>
+            </div>
+      
+            <!--<div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio2">Marzo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio1">Julio</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio1">Octubre</label>
+            </div>-->
+          </div>
+          <button *ngIf="userAns.length == 0" type="submit" class="btn btn-primary">
+            Enviar
+          </button>
+        </form>
+        <!--<form [formGroup]="formPreguntas">
+          <div class="form-group"> 
+            <div>
+              <label for="exampleFormControlInput1">
+                1. El último mes del año es:</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="one"
+                ng-change="change()"
+              />
+              <label class="form-check-label" for="inlineRadio1">Enero</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio2">Marzo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio1">Julio</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio2">Diciembre</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="one"
+              />
+              <label class="form-check-label" for="inlineRadio1">Octubre</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                2. CAPTURAR es lo contrario de:</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="dos"
+              />
+              <label class="form-check-label" for="inlineRadio1">Colocar</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="dos"
+              />
+              <label class="form-check-label" for="inlineRadio2">Libertad</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="dos"
+              />
+              <label class="form-check-label" for="inlineRadio1">Arriesgar</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="dos"
+              />
+              <label class="form-check-label" for="inlineRadio2">Aventurar</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="dos"
+              />
+              <label class="form-check-label" for="inlineRadio1">Desagradar</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                3. Todas las palabras abajo citadas se parecen entre sí. ¿Cuál es la
+                que menos parecido tiene con la otra?</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="tres"
+              />
+              <label class="form-check-label" for="inlineRadio1">Enero</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="tres"
+              />
+              <label class="form-check-label" for="inlineRadio2">Agosto</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="tres"
+              />
+              <label class="form-check-label" for="inlineRadio1">Miércoles</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="tres"
+              />
+              <label class="form-check-label" for="inlineRadio2">Octubre</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="tres"
+              />
+              <label class="form-check-label" for="inlineRadio1">Diciembre</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                4. Conteste Sí o No: ¿R.P.I significa “ruegue a Dios por el”?.
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="cuatro"
+              />
+              <label class="form-check-label" for="inlineRadio1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="cuatro"
+              />
+              <label class="form-check-label" for="inlineRadio2">No</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                5. En las siguientes palabras: ¿Cuál es diferente de las otras?</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="cinco"
+              />
+              <label class="form-check-label" for="inlineRadio1">Tropa</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="cinco"
+              />
+              <label class="form-check-label" for="inlineRadio2">Grupo</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="cinco"
+              />
+              <label class="form-check-label" for="inlineRadio1">Participar</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="cinco"
+              />
+              <label class="form-check-label" for="inlineRadio2">Jauría</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="cinco"
+              />
+              <label class="form-check-label" for="inlineRadio1">Cuadrilla</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                6. USUAL es lo contrario de:</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio1">Raro</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio2">Habitual</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio1">Regular</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio2">Constante</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio1">Siempre</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                7. ¿Con cuál figura puede hacerse dos triángulos equiláteros?</label
+              >
+            </div>
+            <div>
+              <img src="./assets/img/equi.JPG" alt="" class="image" />
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="siete"
+              />
+              <label class="form-check-label" for="inlineRadio1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="siete"
+              />
+              <label class="form-check-label" for="inlineRadio2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="siete"
+              />
+              <label class="form-check-label" for="inlineRadio1">3</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio2">4</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="seis"
+              />
+              <label class="form-check-label" for="inlineRadio1">5</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                8. Ve la fila de números abajo indicados. ¿Cuál número debe venir
+                después?</label
+              >
+            </div>
+            <mark>8 4 2 1</mark>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="ocho"
+              />
+              <label class="form-check-label" for="inlineRadio1">1/2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="ocho"
+              />
+              <label class="form-check-label" for="inlineRadio2">1/4</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="ocho"
+              />
+              <label class="form-check-label" for="inlineRadio1">1/8</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                9. Cliente – Consumidor, estas palabras tienen:</label
+              >
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="nueve"
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                >Significado igual</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="nueve"
+              />
+              <label class="form-check-label" for="inlineRadio2"
+                >Contradictorio</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="nueve"
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                >No son iguales ni contradictorios</label
+              >
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                10. ¿Cuál de las palabras citadas abajo está relacionada con oler,
+                como masticar está con dientes?</label
+              >
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="diez"
+              />
+              <label class="form-check-label" for="inlineRadio1">Dulce</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="diez"
+              />
+              <label class="form-check-label" for="inlineRadio2">Pestilencia</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="diez"
+              />
+              <label class="form-check-label" for="inlineRadio1">Olor</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="4"
+                formControlName="diez"
+              />
+              <label class="form-check-label" for="inlineRadio1">Nariz</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="diez"
+              />
+              <label class="form-check-label" for="inlineRadio1">Limpio</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                11. VERANO es lo contrario de:</label
+              >
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="once"
+              />
+              <label class="form-check-label" for="inlineRadio1">Vacaciones</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="once"
+              />
+              <label class="form-check-label" for="inlineRadio2">Otoño</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="once"
+              />
+              <label class="form-check-label" for="inlineRadio1">Invierno</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="4"
+                formControlName="once"
+              />
+              <label class="form-check-label" for="inlineRadio1">Primavera</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="once"
+              />
+              <label class="form-check-label" for="inlineRadio1">Nieve</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                12. Un avión vuela 300 metros en ½ segundo. A esta misma velocidad,
+                ¿Cuántos metros recorrerá en 10 segundos?</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ingresa tu respuesta"
+                formControlName="doce"
+                onkeypress="return /[0-9]/i.test(event.key)"
+              />
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                13. Estos niños son normales. Todos los niños normales son activos.
+                Estos niños son activos.<br />
+                Suponga que las dos primeras afirmaciones son ciertas. La última es:
+              </label>
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="trece"
+              />
+              <label class="form-check-label" for="inlineRadio1">Verdadera</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="trece"
+              />
+              <label class="form-check-label" for="inlineRadio2">Falsa</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="trece"
+              />
+              <label class="form-check-label" for="inlineRadio1">No muy cierta</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                14. REMOTO es lo contrario de:</label
+              >
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="catorce"
+              />
+              <label class="form-check-label" for="inlineRadio1">Aislado</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="catorce"
+              />
+              <label class="form-check-label" for="inlineRadio2">Cercano</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="catorce"
+              />
+              <label class="form-check-label" for="inlineRadio1">Lejano</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="4"
+                formControlName="catorce"
+              />
+              <label class="form-check-label" for="inlineRadio1">Precipitado</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="catorce"
+              />
+              <label class="form-check-label" for="inlineRadio1">Exacto</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                15. Se venden limones a 3 por 10 centavos. ¿Cuánto costara una docena
+                y media?</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ingresa tu respuesta"
+                onkeypress="return /[0-9]/i.test(event.key)"
+                formControlName="quince"
+              />
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                16. ¿Cuántas de las 5 cantidades abajo indicadas son idénticas una a
+                la otra?</label
+              >
+            </div>
+            <div>
+              <img src="./assets/img/16.JPG" alt="" class="imagedos" />
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="dieciseis"
+              />
+              <label class="form-check-label" for="inlineRadio1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="dieciseis"
+              />
+              <label class="form-check-label" for="inlineRadio2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="dieciseis"
+              />
+              <label class="form-check-label" for="inlineRadio1">3</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="4"
+                formControlName="dieciseis"
+              />
+              <label class="form-check-label" for="inlineRadio2">4</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="5"
+                formControlName="dieciseis"
+              />
+              <label class="form-check-label" for="inlineRadio1">5</label>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                17. Imagine usted que acomoda las siguientes palabras de modo que
+                hagan una afirmación cierta, luego escriba la última letra de la
+                última palabra como respuesta a este problema.
+                <br />
+                Siempre un verbo oración una tiene.
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ingresa tu respuesta"
+                onkeypress="return /[a-z]/i.test(event.key)"
+                formControlName="diecisiete"
+              />
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                18. Un niño de 5 años tiene una hermana que es de doble edad que él.
+                Cuando el niño tenga 8 años, ¿Cuál será la edad de su hermana?
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ingresa tu respuesta"
+                onkeypress="return /[0-9]/i.test(event.key)"
+                formControlName="dieciocho"
+              />
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                19. BAZO – VASO, estas palabras tienen:</label
+              >
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="diecinueve"
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                >Significado igual</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="diecinueve"
+              />
+              <label class="form-check-label" for="inlineRadio2"
+                >Contradictorio</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="diecinueve"
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                >No son iguales ni contradictorio</label
+              >
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <div>
+              <label for="exampleFormControlInput1">
+                20. Juan tiene la misma edad que Maria. Maria es menor que Guillermo.
+                Juan es más joven que Guillermo.
+                <br />
+                Suponga que las dos primeras afirmaciones son verdaderas. La última
+                es:
+              </label>
+            </div>
+            <div></div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="1"
+                formControlName="veinte"
+              />
+              <label class="form-check-label" for="inlineRadio1">Verdadera</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                value="2"
+                formControlName="veinte"
+              />
+              <label class="form-check-label" for="inlineRadio2">Falsa</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                value="3"
+                formControlName="veinte"
+              />
+              <label class="form-check-label" for="inlineRadio1">No muy cierta</label>
+            </div>
+          </div>
+      
+          <button
+            *ngIf="form.length == 0"
+            (click)="answers()"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Enviar
+          </button>
+        </form>-->
+      
+        <div *ngIf="userAns.length != 0 && timeLeft > 0">
+          <p>{{ this.resultado }}</p>
+          <p>{{this.aplicacion}}</p>
+          <button
+            [routerLink]="['']"
+            routerLinkActive="router-link-active"
+            class="btn btn-primary"
+          >
+            Salir
+          </button>
+        </div>
+      
+        <!--<div *ngIf="time > 720">
+          <div class="d-flex justify-content-center align-items-center" *ngIf="time > 720">
+            <p class="text-center text10">Tu tiempo termino</p>
+          </div>
+          <div *ngIf="form.length != 0">
+            <p>{{ this.resultado }}</p>
+            <button 
+              [routerLink]="['']"
+              routerLinkActive="router-link-active"
+              class="btn btn-primary"
+            >
+              Regresar al inicio
+            </button>
+          </div>
+        </div>-->
+      
+      </div>
+      <ng-template #noTime>
+        <div
+          class="d-flex justify-content-center align-items-center"
+        >
+          <p class="text-center text10">Tu tiempo termino</p>
+        </div>
+        <div>
+          <p>{{ this.resultado }}</p>
+          <p>{{this.aplicacion}}</p>
+          <button
+            [routerLink]="['']"
+            routerLinkActive="router-link-active"
+            class="btn btn-primary"
+          >
+            Regresar al inicio
+          </button>
+        </div>
+      </ng-template>
+</div>
+
+<div *ngIf="this.helpers.test === 2">
+</div>
+

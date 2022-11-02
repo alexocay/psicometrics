@@ -9,11 +9,13 @@ import { HomeComponent } from './home/home.component';
 import { QuizModule } from './components/quiz.module';
 import { TermanMerrilComponent } from './terman-merril/terman-merril.component';
 import { TermanMerrilModule } from './terman-merril/terman-merril.module';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
 { path: 'wonderlic', component: WonderlicComponent },
-{path: 'termanMerril', component: TermanMerrilComponent}
+{path: 'termanMerril', component: TermanMerrilComponent}, 
+{path: 'test', component: TestComponent}
 ];
 
 @NgModule({
@@ -22,6 +24,7 @@ const routes: Routes = [
     WonderlicComponent,
     HomeComponent,
     TermanMerrilComponent,
+    TestComponent,
   ],
   imports: [
     ReactiveFormsModule,

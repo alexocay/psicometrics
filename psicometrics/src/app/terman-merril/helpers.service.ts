@@ -9,6 +9,7 @@ export class HelpersService {
   public enter: number = 0;
   public fecha: any;
   public finalTM: number;
+  public test: number = 0;
 
   constructor(public router : Router) { }
 
@@ -26,6 +27,7 @@ export class HelpersService {
     if(id == 1){
     this.router.navigate(['/wonderlic']);
     this.enter = 1;
+    this.test = 1;
     }else if(id == 2){
       this.router.navigate(['/serieUno']);
       this.enter = 1;

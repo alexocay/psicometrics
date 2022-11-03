@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import dataWonder from '../data/wonderlic';
+import dataT1 from '../data/termanUno';
 import { HelpersService } from '../terman-merril/helpers.service';
 import { formatDate } from '@angular/common';
 import { Wonderlic } from 'app/interfaces/wonderlic';
+import {TermanMerril1} from 'app/interfaces/terman-merril1';
 
 interface Question {
   question: any;
@@ -35,7 +37,8 @@ export class TestComponent implements OnInit {
   timeLeft: number = 720;
   interval: any;
 
-  questions: Wonderlic[] = dataWonder;
+ 
+  questions: any;
 
   ansWonderlic = [
     '4',
@@ -154,6 +157,7 @@ export class TestComponent implements OnInit {
 
   startForm(): void {
     if(this.helpers.test == 1){
+      this.questions: Wonderlic[] = dataWonder;
     this.formPreguntas = new FormGroup({
       1: new FormControl('', { nonNullable: true }),
       2: new FormControl('', { nonNullable: true }),

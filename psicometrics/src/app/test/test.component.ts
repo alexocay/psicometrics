@@ -38,7 +38,8 @@ export class TestComponent implements OnInit {
   interval: any;
 
  
-  questions: any;
+  questionsW: Wonderlic[] = dataWonder;
+  questionsTU: TermanMerril1[] = dataT1;
 
   ansWonderlic = [
     '4',
@@ -119,7 +120,7 @@ export class TestComponent implements OnInit {
       this.startForm();
       this.startTimer();
       //this.getAnswer();
-      console.log(this.questions);
+      console.log(this.questionsW);
     } else {
       this.router.navigate(['']);
     }
@@ -157,7 +158,6 @@ export class TestComponent implements OnInit {
 
   startForm(): void {
     if(this.helpers.test == 1){
-      this.questions: Wonderlic[] = dataWonder;
     this.formPreguntas = new FormGroup({
       1: new FormControl('', { nonNullable: true }),
       2: new FormControl('', { nonNullable: true }),

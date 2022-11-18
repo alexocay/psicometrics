@@ -1,1 +1,30 @@
-<p>serie-cinco works!</p>
+<div class="form-group container-fluid">
+    <div class="static">
+      <p>Tiempo restante: {{ transform(timeLeft) }}</p>
+    </div>
+    <div>
+      <h1>SERIE 5</h1>
+      Encuentre las respuestas lo más pronto posible.
+    </div>
+    <br />
+    <form [formGroup]="formCinco" (ngSubmit)="evaluateForm()">
+      <div class="form-group" *ngFor="let question of questions; let i = index">
+        <div>
+          <label for="exampleFormControlInput1">
+            {{ question.question.text }}</label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa tu respuesta"
+            formControlName="{{ question.question.id }}"
+            onkeypress="return /[0-9]/i.test(event.key)"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
+  

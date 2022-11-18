@@ -37,6 +37,7 @@ export class SeerieUnoComponent implements OnInit {
   userUno: string[] = [];
 
  correct = {} as any;
+ incorrect = {} as any;
 
   incorrectas: string[] = [];
   correctas: string[] = [];
@@ -155,7 +156,7 @@ export class SeerieUnoComponent implements OnInit {
           //console.log(this.correctas, 'correctas');
           console.log(this.correct, 'correct');
         } else {
-          this.incorrectas.push(answer);
+          this.incorrect[index] = answer;
           console.log(this.incorrectas, 'incorrectas');
         } 
       });

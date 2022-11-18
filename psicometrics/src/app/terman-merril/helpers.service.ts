@@ -24,14 +24,17 @@ export class HelpersService {
 
 
   public access(id:any){
-    if(id == 1){
-    this.router.navigate(['/wonderlic']);
+    /*if(id == 1){
+    this.router.navigate(['/test']);
     this.enter = 1;
     this.test = 1;
     }else if(id == 2){
       this.router.navigate(['/serieUno']);
       this.enter = 1;
-    }
+    }*/
+    this.enter = id;
+    this.test = id;
+    this.router.navigate(['/test']);
   }
 
   public termanMeril(number:any){

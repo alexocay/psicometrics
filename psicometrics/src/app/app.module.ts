@@ -7,9 +7,15 @@ import { WonderlicComponent } from './wonderlic/wonderlic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { QuizModule } from './components/quiz.module';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+} from '@abacritt/angularx-social-login';
+
 import { TermanMerrilComponent } from './terman-merril/terman-merril.component';
 import { TermanMerrilModule } from './terman-merril/terman-merril.module';
 import { TestComponent } from './test/test.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,7 +40,25 @@ const routes: Routes = [
     QuizModule, 
     TermanMerrilModule
   ],
-  providers: [],
+  providers: [ 
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              'clientId'
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

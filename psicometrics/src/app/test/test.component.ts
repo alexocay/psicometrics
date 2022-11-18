@@ -34,12 +34,12 @@ export class TestComponent implements OnInit {
   timetwo: any;
   interval: any;*/
 
-  timeLeft: number = 720;
+  timeLeft: number; //wonderlic
   interval: any;
 
  
-  questionsW: Wonderlic[] = dataWonder;
-  questionsTU: TermanMerril1[] = dataT1;
+  questionsW: Wonderlic[] = dataWonder; //Data wonderlic
+  questionsTU: TermanMerril1[] = dataT1; //Data terman merril serie 1
 
   ansWonderlic = [
     '4',
@@ -92,9 +92,15 @@ export class TestComponent implements OnInit {
     '175',
     '1',
     '12',
-  ];
+  ]; //respuestas correctas wonderlic
+  userAns: string[] = []; //respuesta de usuario wonderlic
 
-  userAns: string[] = [];
+  
+  ansUno = ['2', '1', '2', '1', '2', '4', '3', '1', '3', '3', '3', '2', '2', '3', '2', '3'];//respuestas correctas terman merri serie 1
+  userUno: string[] = [];//guardar respuestas usuarios terminan merril serie 1
+
+  correct = {} as any;
+ incorrect = {} as any;
 
   respuestas: string[] = [];
   form: string[] = [];
@@ -116,23 +122,32 @@ export class TestComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.helpers.enter == 1) {
-      this.currentDate = new Date();
-      this.startForm();
-      this.startTimer();
+      this.timeLeft = 720;
+      this.startTimer(1);
       //this.getAnswer();
       console.log(this.questionsW);
-    } else {
+    } else if(this.helpers.enter == 2){
+      this.timeLeft = 120;
+      this.startTimer(2);
+    }else {
       this.router.navigate(['']);
     }
+    this.currentDate = new Date();
+    this.startForm();
   }
 
-  startTimer() {
+  startTimer(id:any) {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
+        if(id == 1){
         console.log('se termino tu tiempo');
-        this.answers();
+        this.wonderlic();}
+        else if(id == 2){
+          console.log('se termino tu tiempo');
+          this.termanMerril();
+        }
       }
     }, 1000);
   }
@@ -233,7 +248,7 @@ export class TestComponent implements OnInit {
   }
 
 
-  answers() {
+  wonderlic() {
     this.pauseTimer();
     let date = formatDate(this.currentDate, 'yyyy-MM-dd', 'en-US');
     this.helpers.fecha = date;
@@ -297,6 +312,33 @@ export class TestComponent implements OnInit {
   } else if(this.helpers.test === 2){
     console.log('nada');
   }
+  }
+
+  termanMerril(){
+    this.pauseTimer();
+    console.log(this.ansUno)
+      this.userUno = Object.values(this.formPreguntas.getRawValue());
+      console.log(this.userUno);
+      this.userUno.forEach((answer, index) => {
+        if (answer == this.ansUno[index]) {
+          this.correct[index] = answer;
+          //this.correctas.push(answer);
+          //console.log(this.correctas, 'correctas');
+          console.log(this.correct, 'correct');
+        } else {
+          this.incorrect[index] = answer;
+          console.log(this.incorrectas, 'incorrectas');
+        } 
+      });
+
+      let final =  Object.keys(this.correct).length;
+      console.log(final);
+      this.helpers.fillAnswers({uno: final});
+      this.helpers.finalTM = final;
+      console.log('final', this.helpers.finalTM);
+      this.helpers.enter = 2;
+      this.router.navigate(['/serieDos']);
+    
   }
 }
 

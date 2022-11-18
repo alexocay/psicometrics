@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { HelpersService } from '../terman-merril/helpers.service';
 
 @Component({
@@ -13,5 +13,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.helpers.enter = 0;
   }
+
 
 }

@@ -167,8 +167,14 @@ export class SerieTresComponent implements OnInit {
         } 
       });
 
-      let final = this.helpers.finalTM + (Object.keys(this.correct).length - Object.keys(this.incorrect).length);
-      this.helpers.fillAnswers({tres: final});
+      let s3;
+      if(this.correct.length > 0){
+      s3 = Object.keys(this.correct).length - Object.keys(this.incorrect).length
+      } else {
+        s3 = 0;
+      }
+      let final = this.helpers.finalTM + s3;
+      this.helpers.fillAnswers({tres: s3});
       this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
       this.helpers.enter = 4;

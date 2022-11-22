@@ -138,8 +138,15 @@ export class SerieSeisComponent implements OnInit {
         } 
       });
 
-      let final = this.helpers.finalTM + (Object.keys(this.correct).length - Object.keys(this.incorrect).length);
-      this.helpers.fillAnswers({seis: final});
+      let s6;
+      if(this.correct.length > 0){
+      s6 = Object.keys(this.correct).length - Object.keys(this.incorrect).length
+      } else {
+        s6 = 0;
+      }
+      console.log(s6, 'serie 6');
+      let final = this.helpers.finalTM + s6;
+      this.helpers.fillAnswers({seis: s6});
       this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
       this.helpers.enter = 7;

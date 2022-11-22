@@ -147,8 +147,10 @@ export class SerieDosComponent implements OnInit {
         } 
       });
 
-      let final = this.helpers.finalTM + (Object.keys(this.correct).length * 2);
-      this.helpers.fillAnswers({dos: final});
+      let s2 = Object.keys(this.correct).length * 2
+      console.log(s2);
+      let final = this.helpers.finalTM + s2;
+      this.helpers.fillAnswers({dos: s2});
       this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
       this.helpers.enter = 3;

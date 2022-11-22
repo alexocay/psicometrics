@@ -130,8 +130,10 @@ export class SerieCincoComponent implements OnInit {
         } 
       });
 
-      let final = this.helpers.finalTM + (Object.keys(this.correct).length * 2);
-      this.helpers.fillAnswers({cinco: final});
+      
+      let s5= Object.keys(this.correct).length * 2;
+      let final = this.helpers.finalTM + s5;
+      this.helpers.fillAnswers({cinco: s5});
       this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
       this.helpers.enter = 6;

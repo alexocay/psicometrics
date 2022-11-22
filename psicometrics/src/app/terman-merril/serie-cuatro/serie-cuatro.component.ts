@@ -244,7 +244,7 @@ export class SerieCuatroComponent implements OnInit {
 
 
     let final = this.helpers.finalTM + Object.keys(this.correct).length;
-      this.helpers.fillAnswers({cuatro: final});
+      this.helpers.fillAnswers({cuatro: Object.keys(this.correct).length});
       this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
     this.helpers.enter = 5;
@@ -302,7 +302,12 @@ export class SerieCuatroComponent implements OnInit {
       }
     });
 
-    this.helpers.fillAnswers({ cuatro: this.correct });
+    console.log(Object.keys(this.correct).length);
+    let s4 = Object.keys(this.correct).length;
+    let final = this.helpers.finalTM + s4;
+    this.helpers.fillAnswers({ cuatro: Object.keys(this.correct).length});
+    this.helpers.finalTM = final;
+    console.log('final', this.helpers.finalTM);
     this.helpers.enter = 5;
     this.router.navigate(['/serieCinco']);
   }

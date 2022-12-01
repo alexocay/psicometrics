@@ -8,11 +8,13 @@ import { HelpersService } from '../terman-merril/helpers.service';
 })
 export class HomeComponent implements OnInit {
 
+
   constructor(public helpers: HelpersService) { }
 
   ngOnInit(): void {
     this.helpers.enter = 0;
   }
+
 
 
 }

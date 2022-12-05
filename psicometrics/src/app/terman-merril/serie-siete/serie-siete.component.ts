@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import data from './data'
+import data from './data';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
 } from '@angular/forms';
-import {HelpersService} from '../helpers.service'
+import { HelpersService } from '../helpers.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -18,22 +18,42 @@ interface Question {
 @Component({
   selector: 'app-serie-siete',
   templateUrl: './serie-siete.component.html',
-  styleUrls: ['./serie-siete.component.css']
+  styleUrls: ['./serie-siete.component.css'],
 })
 export class SerieSieteComponent implements OnInit {
   questions: Question[] = data;
 
   //formulario primera seccion
   formSiete: FormGroup;
-  
 
   //Respuestas correctas por sección
-  ansSiete = ['2', '1', '2', '1', '2', '4', '3', '1', '3', '3', '3', '2', '2', '3', '2', '3'];
+  ansSiete = [
+    '1',
+    '1',
+    '3',
+    '2',
+    '2',
+    '4',
+    '3',
+    '1',
+    '1',
+    '4',
+    '2',
+    '3',
+    '2',
+    '3',
+    '2',
+    '3',
+    '2',
+    '3',
+    '3',
+    '2',
+  ];
 
   userSiete: string[] = [];
 
- correct = {} as any;
- incorrect = {} as any;
+  correct = {} as any;
+  incorrect = {} as any;
 
   incorrectas: string[] = [];
   correctas: string[] = [];
@@ -41,22 +61,21 @@ export class SerieSieteComponent implements OnInit {
   timeLeft: number = 120; //2 minutos
   interval: any;
 
-
-  constructor(private router:Router, public helpers: HelpersService) {}
-
+  constructor(private router: Router, public helpers: HelpersService) {}
 
   ngOnInit(): void {
-    if (this.helpers.enter == 7){
+    if (this.helpers.enter == 7) {
       this.startForm();
       this.startTimer();
-        //this.getAnswer();
-        console.log(this.questions);
-      } else {
-        this.router.navigate(['']);
-      }
+      //this.getAnswer();
+      console.log(this.questions);
+      console.log(this.ansSiete);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
-  startForm(){
+  startForm() {
     this.formSiete = new FormGroup({
       1: new FormControl('', { nonNullable: true }),
       2: new FormControl('', { nonNullable: true }),
@@ -112,7 +131,6 @@ export class SerieSieteComponent implements OnInit {
   }
 
   transform(value: number, args?: any) {
-    
     const minutes: number = Math.floor(value / 60);
     const seconds: number = value - minutes * 60;
 
@@ -129,7 +147,6 @@ export class SerieSieteComponent implements OnInit {
 
   evaluateForm(): void {
     this.pauseTimer();
-    if(this.formSiete.valid){
       //nombre de la variable que muestra, numero para inicializar formulario, nombre de arreglo donde se metera valor de respuestas, nombre de arreglo a comparar
       /*console.log(this.ansUno)
       this.userUno = Object.values(this.formUno.getRawValue());
@@ -145,7 +162,7 @@ export class SerieSieteComponent implements OnInit {
           console.log(this.incorrectas, 'incorrectas');
         }
       } */
-      console.log(this.ansSiete)
+      console.log(this.ansSiete);
       this.userSiete = Object.values(this.formSiete.getRawValue());
       console.log(this.userSiete);
       this.userSiete.forEach((answer, index) => {
@@ -156,24 +173,18 @@ export class SerieSieteComponent implements OnInit {
           console.log(this.correct, 'correct');
         } else {
           this.incorrect[index] = answer;
-          console.log(this.incorrectas, 'incorrectas');
-        } 
+          console.log(answer)
+          console.log(this.incorrect, 'incorrectas');
+        }
       });
 
-      this.helpers.fillAnswers({uno: Object.keys(this.correct).length});
-      this.helpers.finalTM = Object.keys(this.correct).length;
+      let s7 = Object.keys(this.correct).length
+      let final = this.helpers.finalTM + s7;
+      this.helpers.fillAnswers({ siete: Object.keys(this.correct).length });
+      this.helpers.finalTM = final;
       console.log('final', this.helpers.finalTM);
-      this.helpers.enter = 2;
-      this.router.navigate(['/serieDos']);
-    } else {
-      //si el primer formulario no es valido
-      //muestro un mensaje de error
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor complete todos los campos',
-      });
-    }
+      this.helpers.enter = 8;
+      this.router.navigate(['/serieOcho']);
     
 
     /*console.log(arrAns, arrCom, seccion, see);
@@ -204,6 +215,5 @@ export class SerieSieteComponent implements OnInit {
         console.log(this.incorrectas);
       }
     }*/
-    }
-
+  }
 }

@@ -1,4 +1,3 @@
-
 const data = [
     {
       question: { id: 1, text: '1. A 2 por 5 pesos, ¿Cuántos lápices puede comprarse con 50 pesos?' },

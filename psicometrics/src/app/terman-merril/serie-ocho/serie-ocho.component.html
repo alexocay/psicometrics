@@ -1,1 +1,39 @@
-<p>serie-ocho works!</p>
+<div class="form-group container-fluid">
+    <div class="static">
+      <p>Tiempo restante: {{ transform(timeLeft) }}</p>
+    </div>
+    <div>
+      <h1>SERIE 8</h1>
+      Las palabras de cada una de las siguientes oraciones están mezcladas. Ordene cada una de
+ellas. Si el significado de la oración es VERDADERO anote la letra V, si el significado de la oración es
+FALSO anote la letra F
+EJEMPLO :
+
+      <br />
+      Oír son los para oídos ............................................... V
+      <br />
+      Comer para pólvora la buena es .............................. F
+    </div>
+    <br />
+    <form [formGroup]="formOcho" (ngSubmit)="evaluateForm()">
+      <div class="form-group" *ngFor="let question of questions; let i = index">
+        <div>
+          <label for="exampleFormControlInput1">
+            {{ question.question.text }}</label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa tu respuesta"
+            formControlName="{{ question.question.id }}"
+            onkeypress="return /[a-z]/i.test(event.key)"
+            maxlength="1"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
+  

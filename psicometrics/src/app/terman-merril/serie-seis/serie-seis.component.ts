@@ -28,10 +28,10 @@ export class SerieSeisComponent implements OnInit {
   incorrect = {} as any;
   selectedAnswers = {} as any; //respuestas usuario 
   
-  timeLeft: number = 120; //5 minutos
+  timeLeft: number = 120; //2 minutos
   interval: any;
   user: string[] = [];
-  ansCinco = ['si', 'no', 'no', 'si', 'si', 'no', 'no', 'si', 'si', 'no', 'no', 'no', 'si', 'no', 'no', 'si', 'no', 'no', 'si'];
+  ansSeis = ['si', 'no', 'no', 'si', 'si', 'no', 'no', 'si', 'si', 'no', 'no', 'no', 'si', 'no', 'no', 'si', 'no', 'no', 'si'];
   
 
   constructor(private router:Router, public helpers: HelpersService) { }
@@ -121,11 +121,11 @@ export class SerieSeisComponent implements OnInit {
 
   evaluateForm(): void {
     this.pauseTimer();
-      console.log(this.ansCinco)
+      console.log(this.ansSeis)
       this.user = Object.values(this.formSeis.getRawValue());
       console.log(this.user);
       this.user.forEach((answer, index) => {
-        if (answer == this.ansCinco[index]) {
+        if (answer == this.ansSeis[index]) {
           this.correct[index] = answer;
           console.log(this.correct, 'correctas');
           //this.correctas.push(answer);
